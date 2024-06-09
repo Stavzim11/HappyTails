@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.happytails.MainFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="com.example.happytails.AddItemFragment"
+        tools:layout="@layout/add_item_fragment">
+        <action
+            android:id="@+id/action_addItemFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.happytails.DetailsFragment"
+        tools:layout="@layout/details_fragment" />
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.happytails.FavoriteFragment"
+        tools:layout="@layout/favorite_fragment" />
+</navigation>
