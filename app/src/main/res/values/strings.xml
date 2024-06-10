@@ -1,3 +1,35 @@
 <resources>
-    <string name="app_name">HappyTails</string>
+    <string name="app_name">ArchitectureProject</string>
+    <string name="what_are_you_looking_for">What are you looking for?</string>
+    <string name="choose_location">Choose location</string>
+    <string name="filterFinish">Search</string>
+    <string name="choose_age">Age</string>
+    <string name="choose_size">Size</string>
+    <string name="choose_gender">Gender</string>
+    <string-array name="choose_location">
+        <item>North District</item>
+        <item>Central District</item>
+        <item>Judea and Samaria</item>
+        <item>Southern District</item>
+        <item>Eilat</item>
+    </string-array>
+    <string-array name="choose_age">
+        <item>Puppy</item>
+        <item>Young</item>
+        <item>Adult</item>
+        <item>Senior</item>
+        <item>All</item>
+    </string-array>
+    <string-array name="choose_size">
+        <item>Small (0–10 kg)</item>
+        <item>Medium (10–25 kg)</item>
+        <item>Large (25–45 kg)</item>
+        <item>Extra Large (45+ kg)</item>
+        <item>All</item>
+    </string-array>
+    <string-array name="choose_gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>All</item>
+    </string-array>
 </resources>
