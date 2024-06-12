@@ -32,4 +32,18 @@
         <item>Female</item>
         <item>All</item>
     </string-array>
+    <string name="app_name">HappyTails</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--register/ loging string -->
+    <string name="app_enter_userName">enter user name</string>
+    <string name="app_enter_password">enter password</string>
+    <string name="app_enter_personal_name">enter name</string>
+    <string name="app_enter_phone">enter phone</string>
+
+    <string name="login_button">login</string>
+    <string name="register_button">register</string>
+
+
 </resources>

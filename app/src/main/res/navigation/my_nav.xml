@@ -35,4 +35,12 @@
         android:id="@+id/favoriteFragment"
         android:name="com.example.happytails.FavoriteFragment"
         tools:layout="@layout/favorite_fragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.happytails.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>
