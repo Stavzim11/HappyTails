@@ -12,10 +12,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.architectureproject.R
-import com.example.architectureproject.data.models.Item
-import com.example.architectureproject.databinding.FilterPopupFragmentBinding
-import com.example.architectureproject.ui.all_items.MainFragmentViewModel
+import com.example.happytails.R
+import com.example.happytails.data.models.Item
+import com.example.happytails.databinding.FilterPopupFragmentBinding
+import com.example.happytails.ui.all_items.MainFragmentViewModel
 
 class FilterPopupFragment : Fragment() {
 
