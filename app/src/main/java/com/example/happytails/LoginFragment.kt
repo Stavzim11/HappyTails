@@ -32,11 +32,15 @@ class LoginFragment : Fragment() {
     ): View? {
         binging = FragmentLoginBinding.inflate(inflater, container, false)
 
+        //login
         binging.loginButton.setOnClickListener{
 
             userViewModel.isConected.value=true
-
             findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+        }
+        //go to register
+        binging.goToRegisterButton.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
         return  binging.root
