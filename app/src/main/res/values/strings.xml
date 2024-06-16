@@ -1,5 +1,7 @@
 <resources>
 
+    <string name="app_name">HappyTails</string>
+
     <string name="what_are_you_looking_for">What are you looking for?</string>
     <string name="choose_location">Choose location</string>
     <string name="filterFinish">Search</string>
@@ -32,9 +34,6 @@
         <item>Female</item>
         <item>All</item>
     </string-array>
-    <string name="app_name">HappyTails</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--register/ loging string -->
     <string name="app_enter_userName">enter user name</string>

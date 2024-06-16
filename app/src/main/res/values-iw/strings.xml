@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="choose_location">
+        <item>מחוז צפון</item>
+        <item>מחוז מרכז</item>
+        <item>יהודה ושומרון</item>
+        <item>מחוז דרום</item>
+        <item>אילת</item>
+    </string-array>
+    <string-array name="choose_age">
+        <item>גור</item>
+        <item>צעיר</item>
+        <item>בוגר</item>
+        <item>זקן</item>
+        <item>הכל</item>
+    </string-array>
+    <string-array name="choose_size">
+        <item>קטן (0–10 kg)</item>
+        <item>בינוני (10–25 kg)</item>
+        <item>גדול (25–45 kg)</item>
+        <item>גדול במיוחד (45+ kg)</item>
+        <item>הכל</item>
+    </string-array>
+    <string-array name="choose_gender">
+        <item>זכר</item>
+        <item>נקבה</item>
+        <item>הכל</item>
+    </string-array>
+
+    <string name="what_are_you_looking_for">מה אתם מחפשים?</string>
+    <string name="choose_location">מיקום</string>
+    <string name="filterFinish">חיפוש</string>
+    <string name="choose_age">גיל</string>
+    <string name="choose_size">גודל</string>
+    <string name="choose_gender">מין</string>
+    <string name="app_name">HappyTails</string>
+    <string name="app_enter_userName">הכנס שם משתמש</string>
+    <string name="app_enter_password">הכנס סיסמא</string>
+    <string name="app_enter_personal_name">הכנס שם</string>
+    <string name="app_enter_phone">הכנס טלפון</string>
+    <string name="login_button">התחברות</string>
+    <string name="register_button">הרשמות</string>
+</resources>
