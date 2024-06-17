@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.filter_popup.FilterPopupFragment">
+    tools:context=".FilterPopupFragment">
 
 
     <TextView
