@@ -13,16 +13,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.happytails.FilterViewModel
 import com.example.happytails.R
 import com.example.happytails.databinding.FilterPopupFragmentBinding
+import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
+
 //import com.example.happytails.MainFragmentViewModel
 
 class FilterPopupFragment : Fragment() {
 
-    private var _binding : FilterPopupFragmentBinding? = null
-    private val binding
-        get() = _binding!!
-
-    private var imageUri : Uri?  = null
-
+    private var binding : FilterPopupFragmentBinding by autoCleared()
+    
     private val viewModel : FilterViewModel by viewModels()
 
     override fun onCreateView(
@@ -30,7 +28,7 @@ class FilterPopupFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FilterPopupFragmentBinding.inflate(inflater,container,false)
+        binding = FilterPopupFragmentBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -66,10 +64,5 @@ class FilterPopupFragment : Fragment() {
 
             findNavController().navigate(R.id.action_filterPopupFragment_to_mainFragment)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
