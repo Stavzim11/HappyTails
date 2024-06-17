@@ -1,4 +1,4 @@
-package com.example.happytails
+package com.example.happytails.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.happytails.R
+import com.example.happytails.ui.main_screen.UserViewModel
 import com.example.happytails.databinding.FragmentRegisterBinding
 import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
 

@@ -1,6 +1,5 @@
-package com.example.architectureproject.ui.filter_popup
+package com.example.happytails.ui.filter_popup
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment
 //import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.happytails.FilterViewModel
 import com.example.happytails.R
 import com.example.happytails.databinding.FilterPopupFragmentBinding
 import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared

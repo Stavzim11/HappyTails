@@ -1,4 +1,4 @@
-package com.example.happytails
+package com.example.happytails.ui.filter_popup
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

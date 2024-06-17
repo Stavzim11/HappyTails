@@ -1,4 +1,4 @@
-package com.example.happytails
+package com.example.happytails.ui.main_screen
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

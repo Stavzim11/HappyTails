@@ -68,6 +68,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add to Favorites" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/update_button"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="update (temp here)" />
         </LinearLayout>
 
     </LinearLayout>
