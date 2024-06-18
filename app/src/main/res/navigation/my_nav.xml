@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.happytails.ui.main_screen.MainFragment"
+        android:name="com.example.happytails.MainFragment"
         tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_mainFragment_to_addItemFragment"
@@ -14,18 +14,12 @@
         <action
             android:id="@+id/action_mainFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_filterPopupFragment"
-            app:destination="@id/filterPopupFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_updateFragment"
-            app:destination="@id/updateFragment" />
 
     </fragment>
 
     <fragment
         android:id="@+id/addItemFragment"
-        android:name="com.example.happytails.ui.add_dog.AddItemFragment"
+        android:name="com.example.happytails.AddItemFragment"
         tools:layout="@layout/add_item_fragment">
         <action
             android:id="@+id/action_addItemFragment_to_mainFragment"
@@ -34,18 +28,21 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.happytails.ui.details.DetailsFragment"
-        tools:layout="@layout/details_fragment" >
-
-    </fragment>
+        android:name="com.example.happytails.DetailsFragment"
+        tools:layout="@layout/details_fragment" />
 
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.happytails.ui.favorite.FavoriteFragment"
-        tools:layout="@layout/favorite_fragment" />
+        android:name="com.example.happytails.FavoriteFragment"
+        tools:layout="@layout/favorite_fragment">
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailsFragment"
+            app:destination="@+id/detailsFragment"/>
+    </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.happytails.ui.LoginFragment"
+        android:name="com.example.happytails.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
@@ -56,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.happytails.ui.RegisterFragment"
+        android:name="com.example.happytails.RegisterFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_mainFragment"
@@ -65,18 +62,4 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/filterPopupFragment"
-        android:name="com.example.happytails.ui.filter_popup.FilterPopupFragment"
-        android:label="FilterPopupFragment" >
-        <action
-            android:id="@+id/action_filterPopupFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:popUpTo="@id/mainFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/updateFragment"
-        android:name="com.example.happytails.ui.UpdateFragment"
-        android:label="UpdateFragment" />
 </navigation>

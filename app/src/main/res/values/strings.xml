@@ -2,6 +2,11 @@
 
     <string name="app_name">HappyTails</string>
 
+    //AddItem strings
+    <string name="breed_type">Enter Your Dog\'s Breed</string>
+    <string name="dog_name">Enter Your Dog\'s Name</string>
+    <string name="more_dog_details">Add More Details About Your Dog</string>
+
     <string name="what_are_you_looking_for">What are you looking for?</string>
     <string name="choose_location">Choose location</string>
     <string name="filterFinish">Search</string>

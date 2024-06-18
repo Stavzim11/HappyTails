@@ -13,8 +13,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/itemImagePager"
             android:layout_width="match_parent"
-            android:layout_height="194dp"
-            />
+            android:layout_height="194dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,13 +37,6 @@
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?android:attr/textColorSecondary" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Text"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorSecondary" />
 
         </LinearLayout>
         <!-- Buttons -->
@@ -68,14 +60,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add to Favorites" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/update_button"
-                style="?attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="update (temp here)" />
         </LinearLayout>
 
     </LinearLayout>

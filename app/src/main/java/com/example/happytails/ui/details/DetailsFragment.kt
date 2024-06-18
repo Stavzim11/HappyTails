@@ -6,9 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.happytails.databinding.DetailsFragmentBinding
 
 class DetailsFragment : Fragment() {
+
+//    private val binding: DetailsFragmentBinding by autoCleared()
+//    private val viewModel: MainFragmentViewModel by activityViewModels()
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        viewModel.chosenItem.observe(viewLifecycleOwner) {
+//            binding.itemName.text = it.title
+//            binding.itemBreed.text = it.description
+//            binding.itemMoreDetails.text = it.moreDetails
+//        }
+//    }
+//}
 
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
@@ -24,13 +40,15 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val title = arguments?.getString("title")
-        val description = arguments?.getString("description")
+        val name = arguments?.getString("title")
+        val breed = arguments?.getString("description")
         val photoUri = arguments?.getString("photo")
+        val moreDetails = arguments?.getString("moreDetails")
 
 
-        binding.itemTitle1.text = title
-        binding.itemDescription1.text = description
+        binding.itemName.text = name
+        binding.itemBreed.text = breed
+        binding.itemMoreDetails.text = moreDetails
 
         if (!photoUri.isNullOrEmpty()) {
             binding.itemImage1.setImageURI(Uri.parse(photoUri))

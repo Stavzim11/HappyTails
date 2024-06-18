@@ -6,18 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.happytails.databinding.AddItemFragmentBinding
-import com.example.happytails.databinding.MainFragmentBinding
 import android.Manifest
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import com.example.happytails.data.models.Item
+import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
 
 class AddItemFragment : Fragment() {
 
@@ -41,7 +40,7 @@ class AddItemFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = AddItemFragmentBinding.inflate(inflater, container, false)
+        binding = AddItemFragmentBinding.inflate(inflater, container, false)
 
         binding.doneBtn.setOnClickListener {
 

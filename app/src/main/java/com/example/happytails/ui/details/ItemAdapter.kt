@@ -5,20 +5,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.example.happytails.R
 import com.example.happytails.databinding.ItemLayoutBinding
-import com.example.happytails.data.models.Item
-import com.example.happytails.data.models.ItemManager
-import com.example.happytails.ui.main_screen.ImagePagerAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ItemAdapter(val items: List<Item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter(val items: List<Item>, val navAction: (Bundle) -> Unit, val viewModel : MainFragmentViewModel) :
+    RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     class ItemViewHolder(private val binding: ItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Item, context: Context) {
+        fun bind(
+            item: Item,
+            context: Context,
+            navAction: (Bundle) -> Unit,
+            viewModel: MainFragmentViewModel
+        ) {
             binding.itemTitle.text = item.title
             binding.itemDescription.text = item.description
 
@@ -31,28 +35,42 @@ class ItemAdapter(val items: List<Item>) : RecyclerView.Adapter<ItemAdapter.Item
                     putString("title", item.title)
                     putString("description", item.description)
                     putString("photo", item.photo)
+                    putString("moreDetails", item.moreDetails)
                 }
-                binding.root.findNavController()
-                    .navigate(R.id.action_mainFragment_to_detailsFragment, bundle)
+                navAction(bundle)
+
+                //binding.root.findNavController()
+                //  .navigate(R.id.action_mainFragment_to_detailsFragment, bundle)
             }
+
+
 
             binding.favoritesButton.setOnClickListener {
-                if(ItemManager.toggleFavorite(item)) {
-                    Toast.makeText(context, "${item.title} added to favorites", Toast.LENGTH_SHORT)
-                        .show()
-                }else{
-                    Toast.makeText(context, "${item.title} is already in favorites", Toast.LENGTH_SHORT).show()
+                item.isFavorite = !item.isFavorite
+                val toastMeassage = if (item.isFavorite) {
+                    "${item.title} added to favorites"
+                } else {
+                    "${item.title} removed from favorites"
                 }
-            }
+                Toast.makeText(context, toastMeassage, Toast.LENGTH_SHORT).show()
 
-            binding.updateButton.setOnClickListener{
-                val bundle = Bundle().apply {
-                    putString("title", item.title)
-                    putString("description", item.description)
-                    putString("photo", item.photo)
+                //Update item in the db on a background thread
+                CoroutineScope(Dispatchers.IO).launch {
+                    viewModel.updateItem(item)
                 }
-                binding.root.findNavController()
-                    .navigate(R.id.action_mainFragment_to_updateFragment, bundle)
+
+//            binding.favoritesButton.setOnClickListener {
+//                if (ItemManager.toggleFavorite(item)) {
+//                    Toast.makeText(context, "${item.title} added to favorites", Toast.LENGTH_SHORT)
+//                        .show()
+//                } else {
+//                    Toast.makeText(
+//                        context,
+//                        "${item.title} is already in favorites",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
             }
         }
     }
@@ -63,61 +81,10 @@ class ItemAdapter(val items: List<Item>) : RecyclerView.Adapter<ItemAdapter.Item
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(items[position], holder.itemView.context)
+        holder.bind(items[position], holder.itemView.context, navAction, viewModel)
     }
 
     override fun getItemCount() = items.size
+
+    fun itemAt(index: Int) = items[index]
 }
-
-
-//package com.example.happytails
-//
-//import android.os.Bundle
-//import android.view.LayoutInflater
-//import android.view.ViewGroup
-//import android.widget.Toast
-//import androidx.navigation.findNavController
-//import androidx.recyclerview.widget.RecyclerView
-//import com.example.happytails.databinding.ItemLayoutBinding
-//import android.content.Context
-//import kotlin.coroutines.jvm.internal.CompletedContinuation.context
-//
-//
-//class ItemAdapter(val items: List<Item>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
-//
-//    class ItemViewHolder(private val binding: ItemLayoutBinding) :
-//        RecyclerView.ViewHolder(binding.root) {
-//
-//        fun bind(item: Item) {
-//            binding.itemTitle.text = item.title
-//            binding.itemDescription.text = item.description
-//
-//            //ViewPager2 with the ImagePagerAdapter
-//            val imagePagerAdapter = ImagePagerAdapter(item.photoUrls)
-//            binding.itemImagePager.adapter = imagePagerAdapter
-//
-//            binding.detailsButton.setOnClickListener {
-//                val bundle = Bundle().apply {
-//                    putString("title", item.title)
-//                    putString("description", item.description)
-//                    putString("photo", item.photo)
-//
-//                }
-//                binding.root.findNavController().navigate(R.id.action_mainFragment_to_detailsFragment, bundle)
-//            }
-//
-//            //Favorites button in Bottom Navigation
-//            binding.favoritesButton.setOnClickListener{
-//                ItemManager.toggleFavorite(item)
-//                Toast.makeText(context, "${item.title} added to favorites", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-//        ItemViewHolder(ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-//
-//    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) = holder.bind(items[position])
-//
-//    override fun getItemCount() = items.size
-//}
