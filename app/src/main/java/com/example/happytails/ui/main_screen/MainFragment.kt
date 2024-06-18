@@ -6,25 +6,35 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.happytails.R
 import com.example.happytails.databinding.MainFragmentBinding
+import com.example.happytails.repository.FirebaseImpl.AuthRepositoryImpl
+import com.example.happytails.repository.FirebaseImpl.DogsRepositoryImpl
+import com.example.happytails.ui.details.ItemAdapter
+import il.co.syntax.firebasemvvm.model.Task
+import il.co.syntax.firebasemvvm.ui.all_tasks.AllTasksViewModel
+import il.co.syntax.firebasemvvm.ui.all_tasks.TasksAdapter
+import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
 
 class MainFragment : Fragment() {
 
-    private var _binding: MainFragmentBinding? = null
-    private val binding get() = _binding!!
+    private var binding: MainFragmentBinding by autoCleared()
 
-    private val viewModel: MainFragmentViewModel by activityViewModels()
+    private val viewModel: MainFragmentViewModel by viewModels {
+        AllTasksViewModel.AllTaskViewModelFactory(AuthRepositoryImpl(),DogsRepositoryImpl())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        binding = MainFragmentBinding.inflate(inflater, container, false)
         binding.addItemBtn.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_addItemFragment)
         }
@@ -33,14 +43,28 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recycler.layoutManager = LinearLayoutManager(requireActivity())
+        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
 
+        binding.recycler.adapter = ItemAdapter(object : ItemAdapter.ItemListener {
+
+            override fun onTaskClicked(task: Task) {
+                viewModel.setCompleted(task.id,!task.finished)
+            }
+
+            override fun onTaskLongClicked(task: Task) {
+                viewModel.deleteTask(task.id)
+            }
+        })
+
+        /*
         viewModel.items?.observe(viewLifecycleOwner) { items ->
             binding.recycler.adapter = ItemAdapter(items, { bundle ->
                 findNavController().navigate(R.id.action_mainFragment_to_detailsFragment, bundle)
             }, viewModel)
             //binding.recycler.adapter = ItemAdapter(ItemManager.items)
 
+
+         */
         }
 
         ItemTouchHelper(object : ItemTouchHelper.Callback() {

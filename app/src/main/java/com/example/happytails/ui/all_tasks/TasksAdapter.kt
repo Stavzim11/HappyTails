@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.happytails.data.models.Item
 import il.co.syntax.firebasemvvm.databinding.TaskLayoutBinding
 import il.co.syntax.firebasemvvm.model.Task
 
 class TasksAdapter(private val callBack:TaskListener) : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
 
-    private val tasks = ArrayList<Task>()
+    private val dogs = ArrayList<Item>()
 
     fun setTasks(tasks: Collection<Task>) {
         this.tasks.clear()
