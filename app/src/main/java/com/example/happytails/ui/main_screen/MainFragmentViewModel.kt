@@ -4,17 +4,24 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.happytails.data.models.Item
+import com.example.happytails.data.models.ItemRepository
+import com.example.happytails.repository.AuthRepository
+import com.example.happytails.utils.Resource
+import il.co.syntax.firebasemvvm.model.Task
 import kotlinx.coroutines.launch
 
-class MainFragmentViewModel(application: Application) : AndroidViewModel(application) {
+class MainFragmentViewModel(private val authRep: AuthRepository, private val itemRep:ItemRepository) : ViewModel() {
 
+//    //With LiveData
+//    private val _tasksStatus : MutableLiveData<Resource<List<Task>>> = MutableLiveData()
+//    val taskStatus: LiveData<Resource<List<Task>>> = _tasksStatus
+//
 
-    private val repository = ItemRepository(application)
-
-
-    val items: LiveData<List<Item>>? = repository.getItems()
-    val favoriteItems: LiveData<List<Item>>? = repository.getFavoriteItems()
+    val items: LiveData<List<Item>>? = itemRep.getItems()
+    val favoriteItems: LiveData<List<Item>>? = itemRep.getFavoriteItems()
 
     private val _chosenItem = MutableLiveData<Item>()
     val chosenItem: LiveData<Item> get() = _chosenItem
@@ -25,19 +32,19 @@ class MainFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     fun insertItem(item: Item) {
         viewModelScope.launch {
-            repository.insertItem(item)
+            itemRep.insertItem(item)
         }
     }
 
     fun deleteItem(item: Item) {
         viewModelScope.launch {
-            repository.deleteItem(item)
+            itemRep.deleteItem(item)
         }
     }
 
     fun updateItem(item: Item) {
         viewModelScope.launch {
-            repository.updateItem(item)
+            itemRep.updateItem(item)
         }
     }
 }
