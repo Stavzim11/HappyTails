@@ -1,4 +1,4 @@
-package com.example.happytails.ui.add_dog
+package com.example.happytails
 
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -6,23 +6,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.happytails.databinding.AddItemFragmentBinding
+import com.example.happytails.databinding.MainFragmentBinding
 import android.Manifest
-import com.example.happytails.data.models.Item
-import com.example.happytails.data.models.ItemManager
-import com.example.happytails.R
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 
 class AddItemFragment : Fragment() {
 
-    private var _binding: AddItemFragmentBinding? = null
-    private val binding get() = _binding!!
+    private var binding: AddItemFragmentBinding by autoCleared()
 
     private var selectedImageUri: Uri? = null
+
+    private val viewModel : MainFragmentViewModel by activityViewModels()
 
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -41,16 +44,45 @@ class AddItemFragment : Fragment() {
         _binding = AddItemFragmentBinding.inflate(inflater, container, false)
 
         binding.doneBtn.setOnClickListener {
-            val defaultPhotoUri = Uri.parse("android.resource://${requireContext().packageName}/drawable/logo1")
-            val photoUri = selectedImageUri ?: defaultPhotoUri
-            val photoUrls = listOf(photoUri.toString())
-            val item = Item(
+
+            //Checks if the user inputted correctly
+            val itemTitle = binding.itemTitle.text.toString().trim()
+            val itemDescription = binding.breedItem.text.toString().trim()
+
+
+            if (itemTitle.isEmpty() || itemDescription.isEmpty()) {
+
+                Toast.makeText(
+                    requireContext(),
+                    "Please enter your dog's name and breed",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+
+                val defaultPhotoUri =
+                    Uri.parse("android.resource://${requireContext().packageName}/drawable/logo1")
+                val photoUri = selectedImageUri ?: defaultPhotoUri
+                val photoUrls = listOf(photoUri.toString())
+                val item = Item(
                     binding.itemTitle.text.toString(),
-                    binding.descItem.text.toString(),
+                    binding.breedItem.text.toString(),
+                    binding.moreDetailsItem.text.toString(),
                     photoUri.toString(),
-                    photoUrls)
-            ItemManager.add(item)
-            findNavController().navigate(R.id.action_addItemFragment_to_mainFragment)
+                    photoUrls
+                )
+
+                viewModel.insertItem(item)
+                //ItemManager.add(item)
+
+                val bundle = Bundle().apply {
+                    putString("title", itemTitle)
+                    putString("description", itemDescription)
+                    putString("photo", photoUri.toString())
+
+
+                }
+                findNavController().navigate(R.id.action_addItemFragment_to_mainFragment)
+            }
         }
 
         binding.pickImageBtn.setOnClickListener {
@@ -92,10 +124,6 @@ class AddItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     companion object {
         private const val REQUEST_READ_EXTERNAL_STORAGE = 100
