@@ -1,0 +1,53 @@
+<resources>
+
+    <string name="app_name">HappyTails</string>
+
+    //AddItem strings
+    <string name="breed_type">Enter Your Dog\'s Breed</string>
+    <string name="dog_name">Enter Your Dog\'s Name</string>
+    <string name="more_dog_details">Add More Details About Your Dog</string>
+
+    <string name="what_are_you_looking_for">What are you looking for?</string>
+    <string name="choose_location">Choose location</string>
+    <string name="filterFinish">Search</string>
+    <string name="choose_age">Age</string>
+    <string name="choose_size">Size</string>
+    <string name="choose_gender">Gender</string>
+    <string-array name="choose_location">
+        <item>North District</item>
+        <item>Central District</item>
+        <item>Judea and Samaria</item>
+        <item>Southern District</item>
+        <item>Eilat</item>
+    </string-array>
+    <string-array name="choose_age">
+        <item>Puppy</item>
+        <item>Young</item>
+        <item>Adult</item>
+        <item>Senior</item>
+        <item>All</item>
+    </string-array>
+    <string-array name="choose_size">
+        <item>Small (0–10 kg)</item>
+        <item>Medium (10–25 kg)</item>
+        <item>Large (25–45 kg)</item>
+        <item>Extra Large (45+ kg)</item>
+        <item>All</item>
+    </string-array>
+    <string-array name="choose_gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>All</item>
+    </string-array>
+
+    <!--register/ loging string -->
+    <string name="app_enter_userName">enter user name</string>
+    <string name="app_enter_password">enter password</string>
+    <string name="app_enter_personal_name">enter name</string>
+    <string name="app_enter_phone">enter phone</string>
+
+    <string name="login_button">login</string>
+    <string name="register_button">register</string>
+
+
+</resources>
