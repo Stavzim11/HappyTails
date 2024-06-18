@@ -9,9 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.happytails.R
-import com.example.happytails.databinding.FavoriteFragmentBinding
 import com.example.happytails.databinding.MainFragmentBinding
-import com.example.happytails.ui.details.ItemAdapter
+import com.example.happytails.ui.main_screen.ItemAdapter
 
 class FavoriteFragment : Fragment() {
 

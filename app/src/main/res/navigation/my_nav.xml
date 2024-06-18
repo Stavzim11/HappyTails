@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.happytails.MainFragment"
+        android:name="com.example.happytails.ui.main_screen.MainFragment"
         tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_mainFragment_to_addItemFragment"
@@ -28,12 +28,12 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.happytails.DetailsFragment"
+        android:name="com.example.happytails.ui.details.DetailsFragment"
         tools:layout="@layout/details_fragment" />
 
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.happytails.FavoriteFragment"
+        android:name="com.example.happytails.ui.favorite.FavoriteFragment"
         tools:layout="@layout/favorite_fragment">
         <action
             android:id="@+id/action_favoriteFragment_to_detailsFragment"
@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.happytails.LoginFragment"
+        android:name="com.example.happytails.ui.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.happytails.RegisterFragment"
+        android:name="com.example.happytails.ui.RegisterFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_mainFragment"

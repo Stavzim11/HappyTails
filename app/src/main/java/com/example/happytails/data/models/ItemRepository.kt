@@ -19,7 +19,6 @@ class ItemRepository(application: Application) {
 
     fun getFavoriteItems() = itemDao?.getFavoriteItems()
 
-
     suspend fun insertItem(item: Item){
         withContext(Dispatchers.IO){
             itemDao?.insertItem(item)

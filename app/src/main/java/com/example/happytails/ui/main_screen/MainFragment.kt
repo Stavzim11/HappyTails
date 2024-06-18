@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -15,10 +14,8 @@ import com.example.happytails.R
 import com.example.happytails.databinding.MainFragmentBinding
 import com.example.happytails.repository.FirebaseImpl.AuthRepositoryImpl
 import com.example.happytails.repository.FirebaseImpl.DogsRepositoryImpl
-import com.example.happytails.ui.details.ItemAdapter
 import il.co.syntax.firebasemvvm.model.Task
 import il.co.syntax.firebasemvvm.ui.all_tasks.AllTasksViewModel
-import il.co.syntax.firebasemvvm.ui.all_tasks.TasksAdapter
 import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
 
 class MainFragment : Fragment() {
@@ -41,20 +38,20 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
-
-        binding.recycler.adapter = ItemAdapter(object : ItemAdapter.ItemListener {
-
-            override fun onTaskClicked(task: Task) {
-                viewModel.setCompleted(task.id,!task.finished)
-            }
-
-            override fun onTaskLongClicked(task: Task) {
-                viewModel.deleteTask(task.id)
-            }
-        })
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        binding.recycler.layoutManager = LinearLayoutManager(requireContext())
+//
+//        binding.recycler.adapter = ItemAdapter(object : ItemAdapter.ItemListener {
+//
+//            override fun onTaskClicked(task: Task) {
+//                viewModel.setCompleted(task.id,!task.finished)
+//            }
+//
+//            override fun onTaskLongClicked(task: Task) {
+//                viewModel.deleteTask(task.id)
+//            }
+//        })
 
         /*
         viewModel.items?.observe(viewLifecycleOwner) { items ->
