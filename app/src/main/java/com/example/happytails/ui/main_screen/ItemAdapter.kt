@@ -6,20 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.happytails.R
 import com.example.happytails.data.models.Item
 import com.example.happytails.databinding.ItemLayoutBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
-//class ItemAdapter(val items: List<Item>, val navAction: (Bundle) -> Unit, val viewModel : MainFragmentViewModel) :
-//    RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
     class ItemAdapter(private val callBack: ItemAdapter.ItemListener) : RecyclerView.Adapter<ItemAdapter.itemViewHolder>() {
 
-        private val items= ArrayList<Item>()
+    private val items = ArrayList<Item>()
 
     fun setItems(items: Collection<Item>) {
         this.items.clear()
@@ -31,20 +27,19 @@ import kotlinx.coroutines.launch
         fun onItemDetailsClicked(item: Item)
         fun onFavoriteClicked(item: Item)
     }
-    //        class ItemViewHolder(private val binding: ItemLayoutBinding) :
-//        RecyclerView.ViewHolder(binding.root) {
+
     inner class itemViewHolder(private val binding: ItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
-    ,View.OnClickListener{
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {
             binding.detailsButton.setOnClickListener(this)
             binding.favoritesButton.setOnClickListener(this)
         }
 
-        fun bind(item: Item) {
+        fun bind(item: Item, context: Context?) {
             binding.itemTitle.text = item.title
             binding.itemDescription.text = item.description
+
 
             // ViewPager2 with the ImagePagerAdapter
             val imagePagerAdapter = ImagePagerAdapter(item.photoUrls)
@@ -57,7 +52,8 @@ import kotlinx.coroutines.launch
                     putString("photo", item.photo)
                     putString("moreDetails", item.moreDetails)
                 }
-
+                binding.root.findNavController()
+                    .navigate(R.id.action_mainFragment_to_detailsFragment, bundle)
             }
 
             binding.favoritesButton.setOnClickListener {
@@ -71,28 +67,17 @@ import kotlinx.coroutines.launch
 
                 //room
                 //Update item in the db on a background thread
-                CoroutineScope(Dispatchers.IO).launch {
-                    viewModel.updateItem(item)
-                }
+//                CoroutineScope(Dispatchers.IO).launch {
+//                    viewModel.updateItem(item)
+//                }
 
-            binding.favoritesButton.setOnClickListener {
-                if (ItemManager.toggleFavorite(item)) {
-                    Toast.makeText(context, "${item.title} added to favorites", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    Toast.makeText(
-                        context,
-                        "${item.title} is already in favorites",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    }
-                }
             }
+
         }
-
+        override fun onClick(p0: View?) {
+            callBack.onItemDetailsClicked(items[adapterPosition])
+        }
     }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = itemViewHolder(
         ItemLayoutBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -101,10 +86,12 @@ import kotlinx.coroutines.launch
         )
     )
 
-    override fun onBindViewHolder(holder: ItemAdapter.itemViewHolder, position: Int) =
-        holder.bind(items[position])
 
-    override fun getItemCount() = items.size
+            override fun onBindViewHolder(holder: itemViewHolder, position: Int) =
+                holder.bind(items[position],null)
 
-    fun itemAt(index: Int) = items[index]
-}
+        override fun getItemCount() = items.size
+
+        fun itemAt(index: Int) = items[index]
+
+    }
