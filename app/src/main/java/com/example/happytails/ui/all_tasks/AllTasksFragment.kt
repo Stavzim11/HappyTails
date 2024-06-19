@@ -13,7 +13,6 @@ import com.google.android.material.snackbar.Snackbar
 import il.co.syntax.firebasemvvm.R
 import il.co.syntax.firebasemvvm.databinding.AddTaskDialogBinding
 import il.co.syntax.firebasemvvm.databinding.FragmentAllTasksBinding
-import il.co.syntax.firebasemvvm.model.Task
 import il.co.syntax.firebasemvvm.repository.FirebaseImpl.AuthRepositoryFirebase
 import il.co.syntax.firebasemvvm.repository.FirebaseImpl.TaskRepositoryFirebase
 import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared

@@ -1,7 +1,6 @@
 package il.co.syntax.firebasemvvm.ui.all_tasks
 
 import androidx.lifecycle.*
-import il.co.syntax.firebasemvvm.model.Task
 import il.co.syntax.firebasemvvm.repository.AuthRepository
 import il.co.syntax.firebasemvvm.repository.TasksRepository
 import il.co.syntax.firebasemvvm.util.Resource

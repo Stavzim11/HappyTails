@@ -9,21 +9,21 @@ import androidx.room.Query
 import androidx.room.Update
 
 @Dao
-interface ItemDao {
+interface DogDao {
 
     @Delete
-    fun deleteItem(item: Item)
+    suspend fun deleteDog(dog: Dog)
 
     @Update
-    fun updateItem(item: Item)
+    suspend fun updateItem(dog: Dog)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertItem(item: Item)
+    suspend fun insertDog(dog: Dog)
 
-    @Query("SELECT * from items")
-    fun getItems() : LiveData<List<Item>>
+    @Query("SELECT * from dogs")
+    suspend fun getItems() : LiveData<List<Dog>>
 
-    @Query("SELECT * from items WHERE isFavorite = 1")
-    fun getFavoriteItems(): LiveData<List<Item>>
+    @Query("SELECT * from dogs WHERE isFavorite = 1")
+    fun getFavoriteDogs(): LiveData<List<Dog>>
 
 }

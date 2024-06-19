@@ -1,50 +1,83 @@
 package com.example.happytails.ui.main_screen
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.happytails.data.models.Item
-import com.example.happytails.data.models.ItemRepository
-import com.example.happytails.repository.AuthRepository
-import com.example.happytails.utils.Resource
-import il.co.syntax.firebasemvvm.model.Task
+import com.example.happytails.data.models.Dog
+import com.example.happytails.repository.DogsRepositoryImpl
+import com.example.happytails.repository.FirebaseImpl.UserRepositoryImpl
 import kotlinx.coroutines.launch
 
-class MainFragmentViewModel(private val authRep: AuthRepository, private val itemRep:ItemRepository) : ViewModel() {
+class MainFragmentViewModel(
+    private val userRep: UserRepositoryImpl,
+    private val dogRep: DogsRepositoryImpl
+) : ViewModel() {
 
-//    //With LiveData
-//    private val _tasksStatus : MutableLiveData<Resource<List<Task>>> = MutableLiveData()
-//    val taskStatus: LiveData<Resource<List<Task>>> = _tasksStatus
-//
+    private val _dogs = MutableLiveData<List<Dog>>()
+    val dogs: LiveData<List<Dog>> get() = _dogs
 
-    val items: LiveData<List<Item>>? = itemRep.getItems()
-    val favoriteItems: LiveData<List<Item>>? = itemRep.getFavoriteItems()
+    private val _favoriteDogs = MutableLiveData<List<Dog>>()
+    val favoriteDogs: LiveData<List<Dog>> get() = _favoriteDogs
 
-    private val _chosenItem = MutableLiveData<Item>()
-    val chosenItem: LiveData<Item> get() = _chosenItem
+    private val _chosenDog = MutableLiveData<Dog>()
+    val chosenDog: LiveData<Dog> get() = _chosenDog
 
-    fun setItem(item: Item) {
-        _chosenItem.value = item
+    init {
+        fetchDogs()
+        fetchFavoriteDogs()
     }
 
-    fun insertItem(item: Item) {
+    private fun fetchDogs() {
         viewModelScope.launch {
-            itemRep.insertItem(item)
+            _dogs.value = dogRep.getDogs().value
         }
     }
 
-    fun deleteItem(item: Item) {
+    private fun fetchFavoriteDogs() {
         viewModelScope.launch {
-            itemRep.deleteItem(item)
+            dogRep.getFavoriteDogs()?.observeForever {
+                _favoriteDogs.postValue(it)
+            }
         }
     }
 
-    fun updateItem(item: Item) {
+    fun setDog(dog: Dog) {
+        _chosenDog.value = dog
+    }
+
+    fun insertDog(dog: Dog) {
         viewModelScope.launch {
-            itemRep.updateItem(item)
+            dogRep.addDog(dog)
+        }
+    }
+
+    fun deleteDog(dog: Dog) {
+        viewModelScope.launch {
+            dogRep.deleteDog(dog)
+        }
+    }
+
+    fun updateDog(dog: Dog) {
+        viewModelScope.launch {
+            dogRep.updateDog(dog)
+        }
+    }
+
+    fun addDogToFavorites(dog: Dog) {
+        viewModelScope.launch {
+            dogRep.addDogToFavorites(dog)
+            fetchFavoriteDogs()
+        }
+    }
+
+    class AllDogViewModelFactory(
+        private val userRepo: UserRepositoryImpl,
+        private val dogRep: DogsRepositoryImpl
+    ) : ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return MainFragmentViewModel(userRepo, dogRep) as T
         }
     }
 }

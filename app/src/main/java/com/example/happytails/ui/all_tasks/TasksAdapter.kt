@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.happytails.data.models.Item
 import il.co.syntax.firebasemvvm.databinding.TaskLayoutBinding
-import il.co.syntax.firebasemvvm.model.Task
 
 class TasksAdapter(private val callBack:TaskListener) : RecyclerView.Adapter<TasksAdapter.TaskViewHolder>() {
 

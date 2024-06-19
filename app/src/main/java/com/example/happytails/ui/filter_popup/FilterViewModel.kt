@@ -2,9 +2,9 @@ package com.example.happytails.ui.filter_popup
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.happytails.data.models.ItemRepository
+import com.example.happytails.repository.DogRepository
 
-class FilterViewModel(private val itemRep: ItemRepository) : ViewModel() {
+class FilterViewModel(private val itemRep: DogRepository) : ViewModel() {
     private val filters = MutableLiveData<Map<String, String?>>().apply {
         value = mapOf(
             "Location" to null,

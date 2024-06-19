@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "items")
-data class Item(
+@Entity(tableName = "dogs")
+data class Dog(
 
     @ColumnInfo(name = "title")
     val title: String,
@@ -44,27 +44,27 @@ data class Item(
 
 object ItemManager {
 
-    val items: MutableList<Item> = mutableListOf()
-    val favorites: MutableList<Item> = mutableListOf()
+    val dogs: MutableList<Dog> = mutableListOf()
+    val favorites: MutableList<Dog> = mutableListOf()
 
-    fun add(item: Item) {
-        items.add(item)
+    fun add(dog: Dog) {
+        dogs.add(dog)
     }
 
 
     fun remove(index: Int) {
-        items.removeAt(index)
+        dogs.removeAt(index)
     }
 
     //Deals with list of favorites
-    fun toggleFavorite(item: Item): Boolean {
-        return if (item.isFavorite) {
-            item.isFavorite = false
-            favorites.remove(item)
+    fun toggleFavorite(dog: Dog): Boolean {
+        return if (dog.isFavorite) {
+            dog.isFavorite = false
+            favorites.remove(dog)
 
         } else {
-            item.isFavorite = true
-            favorites.add(item)
+            dog.isFavorite = true
+            favorites.add(dog)
             true
         }
     }

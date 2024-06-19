@@ -4,28 +4,27 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 
-@Database(entities = arrayOf(Item::class), version = 2, exportSchema = false)
+@Database(entities = arrayOf(Dog::class), version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
-abstract class ItemDatabase : RoomDatabase() {
+abstract class DogDatabase : RoomDatabase() {
 
-    abstract fun itemDao(): ItemDao
+    abstract fun dogDao(): DogDao
 
     companion object {
 
         @Volatile
-        private var instance: ItemDatabase? = null
+        private var instance: DogDatabase? = null
 
-        fun getDatabase(context: Context) = instance ?: synchronized(ItemDatabase::class.java) {
+        fun getDatabase(context: Context) = instance ?: synchronized(DogDatabase::class.java) {
 
 
             //Stav needs to change after coroutines the .allowMainThreadQuiries!!!!!!
-            Room.databaseBuilder(context.applicationContext, ItemDatabase::class.java, "items_db")
+            Room.databaseBuilder(context.applicationContext, DogDatabase::class.java, "items_db")
                 .addMigrations(MIGRATION_1_2).build().also { instance = it }
 
         }
