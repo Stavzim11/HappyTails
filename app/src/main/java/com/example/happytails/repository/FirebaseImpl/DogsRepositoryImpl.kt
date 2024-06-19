@@ -30,7 +30,6 @@ class DogsRepositoryImpl : DogsRepository {
         }
     }
 
-
     override suspend fun getDog(id: Int) = withContext(Dispatchers.IO) {
         safeCall<Item> {
             val result = dogRef.document(id.toString()).get().await()
@@ -55,17 +54,17 @@ class DogsRepositoryImpl : DogsRepository {
     }
 
 
-    /*
-    override fun getTasksLiveData(data: MutableLiveData<Resource<List<Task>>>) {
+
+    override fun getDogsLiveData(data: MutableLiveData<Resource<List<Item>>>) {
 
         data.postValue(Resource.Loading())
 
-        taskRef.orderBy("title").addSnapshotListener {snapshot, e ->
+        dogRef.addSnapshotListener {snapshot, e ->
             if(e != null) {
                 data.postValue(Resource.Error(e.localizedMessage))
             }
             if(snapshot != null && !snapshot.isEmpty) {
-                data.postValue(Resource.Success(snapshot.toObjects(Task::class.java)))
+                data.postValue(Resource.Success(snapshot.toObjects(Item::class.java)))
             }
             else {
                 data.postValue(Resource.Error("No Data"))
@@ -73,5 +72,5 @@ class DogsRepositoryImpl : DogsRepository {
         }
     }
 
-     */
+
 }

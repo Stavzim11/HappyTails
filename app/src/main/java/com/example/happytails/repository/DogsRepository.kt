@@ -13,5 +13,6 @@ interface DogsRepository {
     suspend fun updateDog(dog:Item) : Resource<Void>
     //suspend fun getDogsFiltered(filter: dogFilter) : Resource<List<Item>>
 
-    //fun getDogsLiveData(data : MutableLiveData<Resource<List<Item>>>)
+    fun getDogsLiveData(data : MutableLiveData<Resource<List<Item>>>)
+
 }

@@ -11,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.happytails.R
 import com.example.happytails.data.models.Item
 import com.example.happytails.databinding.ItemLayoutBinding
+import com.example.happytails.utils.Resource
 
 
-    class ItemAdapter(private val callBack: ItemAdapter.ItemListener) : RecyclerView.Adapter<ItemAdapter.itemViewHolder>() {
+class ItemAdapter(private val dogss: Resource<List<Item>>, private val callBack: ItemAdapter.ItemListener) : RecyclerView.Adapter<ItemAdapter.itemViewHolder>() {
 
     private val items = ArrayList<Item>()
 

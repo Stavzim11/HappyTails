@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-kapt")
+    alias(libs.plugins.googleGmsGoogleServices)
 
 }
 
@@ -76,9 +77,6 @@ dependencies {
 
     //for firebase coroutine support
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.1")
-
-    //for flow as live data
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
 
 
     implementation("platform('com.google.firebase:firebase-bom:30.1.0")
