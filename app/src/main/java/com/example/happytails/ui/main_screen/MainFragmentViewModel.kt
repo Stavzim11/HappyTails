@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.happytails.data.models.Dog
-import com.example.happytails.repository.DogsRepositoryImpl
-import com.example.happytails.repository.FirebaseImpl.UserRepositoryImpl
+import com.example.happytails.repository.implementations.DogsRepositoryImpl
+import com.example.happytails.repository.implementations.UserRepositoryImpl
+import com.example.happytails.utils.Resource
 import kotlinx.coroutines.launch
 
 class MainFragmentViewModel(
@@ -15,60 +16,59 @@ class MainFragmentViewModel(
     private val dogRep: DogsRepositoryImpl
 ) : ViewModel() {
 
-    private val _dogs = MutableLiveData<List<Dog>>()
-    val dogs: LiveData<List<Dog>> get() = _dogs
+    // Firebase
+    private val _dogs = MutableLiveData<Resource<List<Dog>>>()
+    val dogs: LiveData<Resource<List<Dog>>> get() = _dogs
 
-    private val _favoriteDogs = MutableLiveData<List<Dog>>()
-    val favoriteDogs: LiveData<List<Dog>> get() = _favoriteDogs
+    private val _addDogStatus = MutableLiveData<Resource<Void>>()
+    val addDogStatus:LiveData<Resource<Void>> = _addDogStatus
 
-    private val _chosenDog = MutableLiveData<Dog>()
-    val chosenDog: LiveData<Dog> get() = _chosenDog
+    private val _removeDogStatus = MutableLiveData<Resource<Void>>()
+    val removeDogStatus:LiveData<Resource<Void>> = _removeDogStatus
+
+//    // Room
+//    // This code should go in FavoriteDogsFragmentViewModel! Along with its observer
+//    val favoriteDogs: LiveData<List<Dog>>? = dogRep.getFavoriteDogs()
+
+//    private val _chosenDog = MutableLiveData<Resource<Dog>>()
+//    val chosenDog:LiveData<Resource<Dog>> = _chosenDog
 
     init {
-        fetchDogs()
-        fetchFavoriteDogs()
+        dogRep.getDogsLiveData(_dogs)
     }
 
-    private fun fetchDogs() {
-        viewModelScope.launch {
-            _dogs.value = dogRep.getDogs().value
-        }
-    }
+//    fun setDog(dog: Dog) {
+//        _chosenDog.value = dog
+//    }
+//
+//    fun insertDog(dog: Dog) {
+//        viewModelScope.launch {
+//            dogRep.addDog(dog)
+//        }
+//    }
+//
+//    fun deleteDog(dog: Dog) {
+//        viewModelScope.launch {
+//            dogRep.deleteDog(dog)
+//        }
+//    }
+//
+//    fun updateDog(dog: Dog) {
+//        viewModelScope.launch {
+//            dogRep.updateDog(dog)
+//        }
+//    }
 
-    private fun fetchFavoriteDogs() {
-        viewModelScope.launch {
-            dogRep.getFavoriteDogs()?.observeForever {
-                _favoriteDogs.postValue(it)
-            }
-        }
-    }
-
-    fun setDog(dog: Dog) {
-        _chosenDog.value = dog
-    }
-
-    fun insertDog(dog: Dog) {
-        viewModelScope.launch {
-            dogRep.addDog(dog)
-        }
-    }
-
-    fun deleteDog(dog: Dog) {
-        viewModelScope.launch {
-            dogRep.deleteDog(dog)
-        }
-    }
-
-    fun updateDog(dog: Dog) {
-        viewModelScope.launch {
-            dogRep.updateDog(dog)
-        }
-    }
 
     fun addDogToFavorites(dog: Dog) {
         viewModelScope.launch {
-            dogRep.addDogToFavorites(dog)
-            fetchFavoriteDogs()
+            _addDogStatus.postValue(dogRep.addDogToFavorites(dog))
+        }
+    }
+
+    fun removeDogFromFavorites(dog: Dog) {
+        viewModelScope.launch {
+            _removeDogStatus.postValue(dogRep.deleteFavoriteDog(dog))
         }
     }
 

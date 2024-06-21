@@ -1,4 +1,4 @@
-import il.co.syntax.firebasemvvm.util.Resource
+package com.example.happytails.utils
 
 inline fun <T> safeCall(action: () -> Resource<T>): Resource<T> {
     return try {

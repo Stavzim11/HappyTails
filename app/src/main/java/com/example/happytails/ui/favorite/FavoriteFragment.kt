@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.happytails.R
 import com.example.happytails.databinding.MainFragmentBinding
-import com.example.happytails.ui.main_screen.ItemAdapter
+import com.example.happytails.ui.main_screen.DogAdapter
 
 class FavoriteFragment : Fragment() {
 
@@ -33,7 +33,7 @@ class FavoriteFragment : Fragment() {
         binding.recycler.layoutManager = LinearLayoutManager(requireActivity())
 
         viewModel.favoriteItems?.observe(viewLifecycleOwner) { items ->
-            binding.recycler.adapter = ItemAdapter(items, { bundle ->
+            binding.recycler.adapter = DogAdapter(items, { bundle ->
                 findNavController().navigate(
                     R.id.action_favoriteFragment_to_detailsFragment, bundle
                 )

@@ -12,13 +12,13 @@ import androidx.room.Update
 interface DogDao {
 
     @Delete
-    suspend fun deleteDog(dog: Dog)
+    suspend fun deleteDog(dog: Dog) : Void
 
     @Update
     suspend fun updateItem(dog: Dog)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDog(dog: Dog)
+    suspend fun insertDog(dog: Dog) : Void
 
     @Query("SELECT * from dogs")
     suspend fun getItems() : LiveData<List<Dog>>

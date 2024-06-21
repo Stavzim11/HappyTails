@@ -1,15 +1,14 @@
-package com.example.happytails.repository.FirebaseImpl
+package com.example.happytails.repository.implementations
 
 import com.example.happytails.data.models.User
 import com.example.happytails.repository.UserRepository
 import com.example.happytails.utils.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import safeCall
+import com.example.happytails.utils.safeCall
 
 
 class UserRepositoryImpl : UserRepository {

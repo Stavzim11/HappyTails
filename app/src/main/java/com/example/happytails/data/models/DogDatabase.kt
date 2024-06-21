@@ -21,9 +21,6 @@ abstract class DogDatabase : RoomDatabase() {
         private var instance: DogDatabase? = null
 
         fun getDatabase(context: Context) = instance ?: synchronized(DogDatabase::class.java) {
-
-
-            //Stav needs to change after coroutines the .allowMainThreadQuiries!!!!!!
             Room.databaseBuilder(context.applicationContext, DogDatabase::class.java, "items_db")
                 .addMigrations(MIGRATION_1_2).build().also { instance = it }
 

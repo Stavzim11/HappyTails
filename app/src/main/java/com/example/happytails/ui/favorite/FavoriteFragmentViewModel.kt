@@ -2,9 +2,8 @@ package com.example.happytails.ui.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.happytails.repository.DogsRepositoryImpl
-import com.example.happytails.repository.FirebaseImpl.UserRepositoryImpl
-import com.example.happytails.repository.UserRepository
+import com.example.happytails.repository.implementations.DogsRepositoryImpl
+import com.example.happytails.repository.implementations.UserRepositoryImpl
 
 
 class FavoriteFragmentViewModel(
