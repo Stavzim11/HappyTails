@@ -12,10 +12,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import com.example.happytails.utils.safeCall
+import com.google.firebase.firestore.Filter
 
 class DogsRepositoryImpl(application: Application) : DogsRepository {
 
     private val dogDao: DogDao?
+
+    private val filters: MutableLiveData<Map<String, String?>> = MutableLiveData()
 
     // For Favorites
     private var chosenDog: MutableLiveData<Dog> = MutableLiveData()
@@ -23,6 +26,15 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
     init {
         val db = DogDatabase.getDatabase(application.applicationContext)
         dogDao = db.dogDao()
+        val filters = MutableLiveData<Map<String, String?>>().apply {
+            value = mapOf(
+                "Location" to null,
+                "Age" to null,
+                "Size" to null,
+                "Gender" to null
+            )
+        }
+        setFilters(filters)
     }
 
 
@@ -86,8 +98,17 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
     override fun getDogsLiveData(data: MutableLiveData<Resource<List<Dog>>>) {
 
         data.postValue(Resource.Loading())
+        val query = dogRef
+            .where(Filter.and
+                (Filter.or(Filter.equalTo("location", filters.value?.get("Location")), Filter.equalTo("location", null))
+                ,Filter.or(Filter.equalTo("age", filters.value?.get("Age")), Filter.equalTo("age", null))
+                ,Filter.or(Filter.equalTo("size", filters.value?.get("Size")), Filter.equalTo("size", null))
+                ,Filter.or(Filter.equalTo("gender", filters.value?.get("Gender")), Filter.equalTo("gender", null))
+                        )
+            )
+            .orderBy("id")
 
-        dogRef.orderBy("id").addSnapshotListener {snapshot, e ->
+        query.addSnapshotListener {snapshot, e ->
             if(e != null) {
                 data.postValue(Resource.Error(e.localizedMessage!!))
             }
@@ -98,6 +119,11 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
                 data.postValue(Resource.Error("No Data"))
             }
         }
+    }
+
+
+    override fun setFilters(filters: MutableLiveData<Map<String, String?>>) {
+        this.filters.postValue(filters.value)
     }
 
     override suspend fun updateDog(dog: Dog) = withContext(Dispatchers.IO) {

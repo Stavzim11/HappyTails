@@ -11,9 +11,8 @@ interface DogsRepository {
     suspend fun getDog(id: Int): Resource<Dog>
     suspend fun getDogs(): Resource<List<Dog>>
     suspend fun updateDog(dog: Dog): Resource<Void>
-    //suspend fun getDogsFiltered(filter: dogFilter) : Resource<List<Dog>>
-
     fun getDogsLiveData(data: MutableLiveData<Resource<List<Dog>>>)
     suspend fun addDogToFavorites(dog: Dog): Resource<Void>
     suspend fun deleteFavoriteDog(dog: Dog): Resource<Void>
+    fun setFilters(filters: MutableLiveData<Map<String, String?>>)
 }
