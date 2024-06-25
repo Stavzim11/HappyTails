@@ -18,7 +18,7 @@ class UserRepositoryImpl : UserRepository {
 
     override suspend fun currentUser(): Resource<User> {
         return withContext(Dispatchers.IO) {
-            safeCall<User> {
+            safeCall {
                 val user = userRef.document(firebaseAuth.currentUser!!.uid).get().await()
                     .toObject(User::class.java)
                 Resource.Success(user!!)
@@ -28,7 +28,7 @@ class UserRepositoryImpl : UserRepository {
 
     override suspend fun login(userName: String, password: String): Resource<User> {
         return withContext(Dispatchers.IO) {
-            safeCall<User> {
+            safeCall {
                 val result = firebaseAuth.signInWithEmailAndPassword(userName, password).await()
                 val user =
                     userRef.document(result.user?.uid!!).get().await().toObject(User::class.java)!!
@@ -44,7 +44,7 @@ class UserRepositoryImpl : UserRepository {
         userPass: String
     ): Resource<User> {
         return withContext(Dispatchers.IO) {
-            safeCall<User> {
+            safeCall {
                 val registrationResult =
                     firebaseAuth.createUserWithEmailAndPassword(userEmail, userPass).await()
                 val userId = registrationResult.user?.uid!!

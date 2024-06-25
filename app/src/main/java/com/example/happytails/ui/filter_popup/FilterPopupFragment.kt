@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-//import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.happytails.R
 import com.example.happytails.databinding.FilterPopupFragmentBinding
-import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
-
-//import com.example.happytails.MainFragmentViewModel
+import com.example.happytails.utils.autoCleared
 
 class FilterPopupFragment : Fragment() {
 
@@ -25,7 +22,7 @@ class FilterPopupFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FilterPopupFragmentBinding.inflate(inflater,container,false)
         return binding.root
     }

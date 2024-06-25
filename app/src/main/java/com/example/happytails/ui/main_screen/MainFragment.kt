@@ -16,8 +16,7 @@ import com.example.happytails.repository.implementations.DogsRepositoryImpl
 import com.example.happytails.repository.implementations.UserRepositoryImpl
 import com.example.happytails.utils.Resource
 import com.google.android.material.snackbar.Snackbar
-import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
-
+import com.example.happytails.utils.autoCleared
 class MainFragment : Fragment() {
 
     private var binding: MainFragmentBinding by autoCleared()

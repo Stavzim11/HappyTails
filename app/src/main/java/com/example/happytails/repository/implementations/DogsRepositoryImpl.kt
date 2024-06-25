@@ -17,7 +17,7 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
 
     private val dogDao: DogDao?
 
-    // For navigation to details fragment
+    // For Favorites
     private var chosenDog: MutableLiveData<Dog> = MutableLiveData()
 
     init {
@@ -89,7 +89,7 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
 
         dogRef.orderBy("id").addSnapshotListener {snapshot, e ->
             if(e != null) {
-                data.postValue(Resource.Error(e.localizedMessage))
+                data.postValue(Resource.Error(e.localizedMessage!!))
             }
             if(snapshot != null && !snapshot.isEmpty) {
                 data.postValue(Resource.Success(snapshot.toObjects(Dog::class.java)))
