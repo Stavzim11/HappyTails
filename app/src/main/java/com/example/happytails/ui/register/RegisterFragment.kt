@@ -9,19 +9,15 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import il.co.syntax.firebasemvvm.R
-import il.co.syntax.firebasemvvm.databinding.FragmentRegisterBinding
-import il.co.syntax.firebasemvvm.repository.FirebaseImpl.AuthRepositoryFirebase
-import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
-import il.co.syntax.firebasemvvm.util.Resource
+import com.example.happytails.R
+import com.example.happytails.databinding.FragmentRegisterBinding
+import com.example.happytails.utils.Resource
+import com.example.happytails.utils.autoCleared
 
 class RegisterFragment : Fragment(){
 
     private var binding : FragmentRegisterBinding by autoCleared()
-
-    private val viewModel : RegisterViewModel by viewModels() {
-        RegisterViewModel.RegisterViewModelFactory(AuthRepositoryFirebase())
-    }
+    private val viewModel : RegisterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,12 +26,12 @@ class RegisterFragment : Fragment(){
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater,container,false)
 
-        binding.userRegisterButton.setOnClickListener {
+        binding.registerButton.setOnClickListener {
 
-            viewModel.createUser(binding.edxtUserName.editText?.text.toString(),
-             binding.edxtEmailAddress.editText?.text.toString(),
-             binding.edxtPhoneNum.editText?.text.toString(),
-             binding.edxtPassword.editText?.text.toString())
+            viewModel.createUser(binding.name.text.toString(),
+             binding.email.text.toString(),
+             binding.phone.text.toString(),
+             binding.password.text.toString())
         }
         return binding.root
     }
@@ -48,16 +44,16 @@ class RegisterFragment : Fragment(){
 
             when(it) {
                 is Resource.Loading -> {
-                    binding.registerProgress.isVisible = true
-                    binding.userRegisterButton.isEnabled = false
+                    binding.RegisterProgressBar.isVisible = true
+                    binding.registerButton.isEnabled = false
                 }
                 is Resource.Success -> {
                     Toast.makeText(requireContext(),"Registration successful",Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_registerFragment_to_allTasksFragment2)
+                    findNavController().navigate(R.id.action_registerFragment_to_mainFragment)
                 }
                 is Resource.Error -> {
-                    binding.registerProgress.isVisible = false
-                    binding.userRegisterButton.isEnabled = true
+                    binding.RegisterProgressBar.isVisible = false
+                    binding.registerButton.isEnabled = true
                 }
             }
         }

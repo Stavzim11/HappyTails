@@ -34,10 +34,13 @@
     <string name="choose_size">גודל</string>
     <string name="choose_gender">מין</string>
     <string name="app_name">HappyTails</string>
-    <string name="app_enter_userName">הכנס שם משתמש</string>
+    <string name="app_enter_email">הכנס מייל</string>
     <string name="app_enter_password">הכנס סיסמא</string>
-    <string name="app_enter_personal_name">הכנס שם</string>
+    <string name="app_enter_name">הכנס שם</string>
     <string name="app_enter_phone">הכנס טלפון</string>
     <string name="login_button">התחברות</string>
     <string name="register_button">הרשמות</string>
+    <string name="breed_type">הכנס גזע הכלב</string>
+    <string name="dog_name">הכנס שם כלב</string>
+    <string name="more_dog_details">הוסף פרטים נוספים על הכלב</string>
 </resources>

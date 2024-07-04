@@ -1,13 +1,13 @@
 package il.co.syntax.firebasemvvm.ui.login
 
 import androidx.lifecycle.*
-import il.co.syntax.firebasemvvm.util.Resource
+import com.example.happytails.data.models.User
+import com.example.happytails.repository.UserRepository
+import com.example.happytails.utils.Resource
 import kotlinx.coroutines.launch
 
-import il.co.syntax.firebasemvvm.model.User
-import il.co.syntax.firebasemvvm.repository.AuthRepository
 
-class LoginViewModel(private val authRep:AuthRepository) : ViewModel() {
+class LoginViewModel(private val authRep:UserRepository) : ViewModel() {
 
     private val _userSignInStatus = MutableLiveData<Resource<User>>()
     val userSignInStatus: LiveData<Resource<User>> = _userSignInStatus
@@ -35,8 +35,7 @@ class LoginViewModel(private val authRep:AuthRepository) : ViewModel() {
     }
 
 
-    class LoginViewModelFactory(private val repo: AuthRepository) : ViewModelProvider.NewInstanceFactory() {
-
+    class LoginViewModelFactory(private val repo: UserRepository) : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return LoginViewModel(repo) as T
         }
