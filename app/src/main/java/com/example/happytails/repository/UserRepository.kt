@@ -11,7 +11,7 @@ interface UserRepository {
         userName: String,
         userEmail: String,
         userPhone: String,
-        userLoginPass: String
+        userPass: String
     ): Resource<User>
 
     suspend fun getUserFavs(): List<String>

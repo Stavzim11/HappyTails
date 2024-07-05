@@ -26,10 +26,10 @@ class UserRepositoryImpl : UserRepository {
         }
     }
 
-    override suspend fun login(userName: String, password: String): Resource<User> {
+    override suspend fun login(email: String, password: String): Resource<User> {
         return withContext(Dispatchers.IO) {
             safeCall {
-                val result = firebaseAuth.signInWithEmailAndPassword(userName, password).await()
+                val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
                 val user =
                     userRef.document(result.user?.uid!!).get().await().toObject(User::class.java)!!
                 Resource.Success(user)
@@ -52,10 +52,7 @@ class UserRepositoryImpl : UserRepository {
                 userRef.document(userId).set(newUser).await()
                 Resource.Success(newUser)
             }
-
         }
-
-
     }
 
     override suspend fun getUserFavs(): List<String> {
@@ -65,12 +62,16 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override suspend fun isConnected(): Boolean {
-        val user = firebaseAuth.currentUser?.uid.let {
-            if (it != null) {
-                userRef.document(it).get().await().toObject(User::class.java)
-            }
-        }
-        return true
+//        val user = firebaseAuth.currentUser?.uid.let {
+//            if (it != null) {
+//                userRef.document(it).get().await().toObject(User::class.java)
+//            }
+//        }
+//        return true
+        val user=firebaseAuth.currentUser
+        return (user!=null)
+
+
     }
 
     override fun logout() {

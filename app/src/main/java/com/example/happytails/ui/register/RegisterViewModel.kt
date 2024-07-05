@@ -2,12 +2,12 @@ package il.co.syntax.firebasemvvm.ui.register
 
 import android.util.Patterns
 import androidx.lifecycle.*
-import il.co.syntax.firebasemvvm.model.User
-import il.co.syntax.firebasemvvm.repository.AuthRepository
-import il.co.syntax.firebasemvvm.util.Resource
+import com.example.happytails.data.models.User
+import com.example.happytails.repository.UserRepository
+import com.example.happytails.utils.Resource
 import kotlinx.coroutines.launch
 
-class RegisterViewModel(private val repository:AuthRepository) : ViewModel() {
+class RegisterViewModel(private val repository:UserRepository) : ViewModel() {
 
     private val _userRegistrationStatus = MutableLiveData<Resource<User>>()
     val userRegistrationStatus: LiveData<Resource<User>> = _userRegistrationStatus
@@ -29,8 +29,7 @@ class RegisterViewModel(private val repository:AuthRepository) : ViewModel() {
 
     }
 
-    class RegisterViewModelFactory(private val repo: AuthRepository) : ViewModelProvider.NewInstanceFactory() {
-
+    class RegisterViewModelFactory(private val repo: UserRepository) : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return RegisterViewModel(repo) as T
         }

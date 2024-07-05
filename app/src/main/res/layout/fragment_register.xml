@@ -20,19 +20,20 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    userName-->
+    <!--    email-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/userName_layout"
+        android:id="@+id/email_layout"
         android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/Register_textView">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/userName"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/app_enter_userName" />
+            android:inputType="textEmailAddress"
+            android:hint="@string/app_enter_email" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -42,13 +43,14 @@
         android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/userName_layout"
+        app:layout_constraintTop_toBottomOf="@id/email_layout"
         >
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/app_enter_password"
-            android:id="@+id/password"
+            android:inputType="textPassword"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,12 +64,12 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/personalName"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="string/app_enter_personal_name" />
+            android:hint="@string/app_enter_name"
+            />
     </com.google.android.material.textfield.TextInputLayout>
-
 
 
     <!--    phone-->
@@ -90,16 +92,17 @@
 
     <!--    register-->
     <Button
+        android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:id="@+id/registerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phone_layout"
         app:layout_constraintBottom_toTopOf="@+id/goTo_login_button"
         />
 
+    <!--    login-->
     <Button
         android:id="@+id/goTo_login_button"
         android:layout_width="wrap_content"
@@ -111,6 +114,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerButton" />
+
+    <ProgressBar
+        android:id="@+id/RegisterProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goTo_login_button" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
