@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/addItemFragment"
-        android:name="com.example.happytails.AddDogFragment"
+        android:name="com.example.happytails.ui.add_dog.AddDogFragment"
         tools:layout="@layout/add_dog_fragment">
         <action
             android:id="@+id/action_addDogFragment_to_mainFragment"
@@ -61,5 +61,13 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterPopUpFragment"
+        android:name="com.example.happytails.ui.filter_popup.FilterPopupFragment"
+        android:label="FilterPopUpFragment">
+        <action
+            android:id="@+id/action_filterPopupFragment_to_mainFragment"
+            app:destination="@+id/mainFragment"/>
     </fragment>
 </navigation>

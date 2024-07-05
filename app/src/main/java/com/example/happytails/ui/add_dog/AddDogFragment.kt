@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.happytails.R
@@ -23,7 +24,7 @@ class AddDogFragment : androidx.fragment.app.Fragment() {
 
     private var binding: AddDogFragmentBinding by autoCleared()
 
-    private val viewModel: AddDogViewModel by activityViewModels()
+    private val viewModel: AddDogViewModel by viewModels()
 
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->

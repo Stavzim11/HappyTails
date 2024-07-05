@@ -55,7 +55,7 @@ import com.example.happytails.databinding.ItemLayoutBinding
 
                 }
                 binding.root.findNavController()
-                    .navigate(R.id.action_mainFragment_to_detailsFragment, bundle)
+                    .navigate(R.id.action_mainFragment_to_dogDetailsFragment, bundle)
             }
 
             binding.favoritesButton.setOnClickListener {

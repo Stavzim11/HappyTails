@@ -134,6 +134,9 @@ class MainFragment : Fragment() {
         }
 
 
+
+
+
 //        // Chosen dog for details, navigate to details fragment
 //        viewModel.chosenDog.observe(viewLifecycleOwner) {
 //            when(it) {
