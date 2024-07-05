@@ -8,7 +8,7 @@
     tools:context=".DetailsFragment">
 
     <ImageView
-        android:id="@+id/item_image1"
+        android:id="@+id/dog_image1"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginBottom="16dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/item_name"
+        android:id="@+id/dog_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="24sp"
@@ -26,20 +26,20 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_image1" />
+        app:layout_constraintTop_toBottomOf="@id/dog_image1" />
 
     <TextView
-        android:id="@+id/item_breed"
+        android:id="@+id/dog_breed"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_name" />
+        app:layout_constraintTop_toBottomOf="@id/dog_name" />
 
     <TextView
-        android:id="@+id/item_more_details"
+        android:id="@+id/dog_more_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
@@ -47,7 +47,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_breed" />
+        app:layout_constraintTop_toBottomOf="@id/dog_breed" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

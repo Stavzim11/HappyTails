@@ -13,11 +13,7 @@ import com.example.happytails.R
 import com.example.happytails.databinding.FragmentLoginBinding
 import com.example.happytails.utils.Resource
 import com.example.happytails.utils.autoCleared
-//import il.co.syntax.firebasemvvm.R
-//import il.co.syntax.firebasemvvm.databinding.FragmentLoginBinding
-//import il.co.syntax.firebasemvvm.repository.FirebaseImpl.AuthRepositoryFirebase
-//import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
-//import il.co.syntax.firebasemvvm.util.Resource
+
 
 class LoginFragment : Fragment() {
 

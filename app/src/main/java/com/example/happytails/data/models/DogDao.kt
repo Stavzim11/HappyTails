@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.happytails.utils.Resource
 
 @Dao
 interface DogDao {
@@ -27,3 +28,4 @@ interface DogDao {
     fun getFavoriteDogs(): LiveData<List<Dog>>
 
 }
+

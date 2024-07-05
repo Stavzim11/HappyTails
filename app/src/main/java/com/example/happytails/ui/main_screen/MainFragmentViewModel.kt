@@ -1,5 +1,7 @@
 package com.example.happytails.ui.main_screen
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +14,10 @@ import com.example.happytails.utils.Resource
 import kotlinx.coroutines.launch
 
 class MainFragmentViewModel(
+    application: Application,
     private val userRep: UserRepositoryImpl,
     private val dogRep: DogsRepositoryImpl
-) : ViewModel() {
+) : AndroidViewModel(application) {
 
     // Firebase
     private val _dogs = MutableLiveData<Resource<List<Dog>>>()
@@ -26,12 +29,7 @@ class MainFragmentViewModel(
     private val _removeDogStatus = MutableLiveData<Resource<Void>>()
     val removeDogStatus:LiveData<Resource<Void>> = _removeDogStatus
 
-//    // Room
-//    // This code should go in FavoriteDogsFragmentViewModel! Along with its observer
-//    val favoriteDogs: LiveData<List<Dog>>? = dogRep.getFavoriteDogs()
 
-//    private val _chosenDog = MutableLiveData<Resource<Dog>>()
-//    val chosenDog:LiveData<Resource<Dog>> = _chosenDog
 
     init {
         dogRep.getDogsLiveData(_dogs)
@@ -73,11 +71,16 @@ class MainFragmentViewModel(
     }
 
     class AllDogViewModelFactory(
+        private val application: Application,
         private val userRepo: UserRepositoryImpl,
-        private val dogRep: DogsRepositoryImpl
-    ) : ViewModelProvider.NewInstanceFactory() {
+        private val dogRepo: DogsRepositoryImpl
+    ) : ViewModelProvider.AndroidViewModelFactory(application) {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return MainFragmentViewModel(userRepo, dogRep) as T
+            if (modelClass.isAssignableFrom(MainFragmentViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return MainFragmentViewModel(application, userRepo, dogRepo) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
 }

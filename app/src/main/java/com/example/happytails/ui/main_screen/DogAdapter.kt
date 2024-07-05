@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.happytails.R
 import com.example.happytails.data.models.Dog
-import com.example.happytails.databinding.DogLayoutBinding
+import com.example.happytails.databinding.ItemLayoutBinding
 
 
     class DogAdapter(private val callBack: DogAdapter.DogListener) : RecyclerView.Adapter<DogAdapter.DogViewHolder>() {
@@ -28,7 +28,7 @@ import com.example.happytails.databinding.DogLayoutBinding
         fun onFavoriteClicked(dog: Dog)
     }
 
-    inner class DogViewHolder(private val binding: DogLayoutBinding) :
+    inner class DogViewHolder(private val binding: ItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         init {
@@ -37,20 +37,22 @@ import com.example.happytails.databinding.DogLayoutBinding
         }
 
         fun bind(dog: Dog, context: Context?) {
-            binding.dogName.text = dog.name
-            binding.dogDescription.text = dog.description
+            binding.itemTitle.text = dog.name
+            binding.itemDescription.text = dog.description
 
 
             // ViewPager2 with the ImagePagerAdapter
             val imagePagerAdapter = ImagePagerAdapter(dog.photoUrls)
-            binding.dogImagePager.adapter = imagePagerAdapter
+            binding.itemImagePager.adapter = imagePagerAdapter
 
             binding.detailsButton.setOnClickListener {
                 val bundle = Bundle().apply {
+                    //TODO Need to add more details
                     putString("name", dog.name)
                     putString("description", dog.description)
                     putString("photo", dog.photo)
                     putString("moreDetails", dog.moreDetails)
+
                 }
                 binding.root.findNavController()
                     .navigate(R.id.action_mainFragment_to_detailsFragment, bundle)
@@ -74,12 +76,12 @@ import com.example.happytails.databinding.DogLayoutBinding
             }
 
         }
-//        override fun onClick(p0: View?) {
-//            callBack.onDogDetailsClicked(dogs[adapterPosition])
-//        }
+        override fun onClick(p0: View?) {
+            callBack.onDogDetailsClicked(dogs[adapterPosition])
+        }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DogViewHolder(
-        DogLayoutBinding.inflate(
+        ItemLayoutBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -90,7 +92,7 @@ import com.example.happytails.databinding.DogLayoutBinding
             override fun onBindViewHolder(holder: DogViewHolder, position: Int) =
                 holder.bind(dogs[position],null)
 
-        override fun getDogCount() = dogs.size
+        override fun getItemCount() = dogs.size
 
         fun dogAt(index: Int) = dogs[index]
 

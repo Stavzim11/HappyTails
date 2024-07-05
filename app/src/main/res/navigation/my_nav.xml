@@ -12,17 +12,17 @@
             android:id="@+id/action_mainFragment_to_addItemFragment"
             app:destination="@id/addItemFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_detailsFragment"
+            android:id="@+id/action_mainFragment_to_dogDetailsFragment"
             app:destination="@id/detailsFragment" />
 
     </fragment>
 
     <fragment
         android:id="@+id/addItemFragment"
-        android:name="com.example.happytails.AddItemFragment"
-        tools:layout="@layout/add_item_fragment">
+        android:name="com.example.happytails.AddDogFragment"
+        tools:layout="@layout/add_dog_fragment">
         <action
-            android:id="@+id/action_addItemFragment_to_mainFragment"
+            android:id="@+id/action_addDogFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
 
