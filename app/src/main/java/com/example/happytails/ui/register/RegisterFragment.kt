@@ -1,4 +1,4 @@
-package il.co.syntax.firebasemvvm.ui.register
+package com.example.happytails.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

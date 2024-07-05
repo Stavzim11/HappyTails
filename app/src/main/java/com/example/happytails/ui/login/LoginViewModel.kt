@@ -1,4 +1,4 @@
-package il.co.syntax.firebasemvvm.ui.login
+package com.example.happytails.ui
 
 import androidx.lifecycle.*
 import com.example.happytails.data.models.User
