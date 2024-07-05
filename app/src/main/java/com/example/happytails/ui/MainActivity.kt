@@ -1,26 +1,35 @@
 package com.example.happytails.ui
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.happytails.R
+import com.example.happytails.repository.implementations.DogsRepositoryImpl
+import com.example.happytails.repository.implementations.UserRepositoryImpl
+import com.example.happytails.ui.main_screen.MainFragmentViewModel
 import com.example.happytails.ui.main_screen.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var userViewModel: UserViewModel
+   // private lateinit var userViewModel: UserViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        val userViewModel: UserViewModel by viewModels {
+            UserViewModel.AllDogViewModelFactory(UserRepositoryImpl())
+        }
+        //userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -70,5 +79,3 @@ class MainActivity : AppCompatActivity() {
         connectMenu.isVisible = !((connected) == true)
     }
 }
-
-

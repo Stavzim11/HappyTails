@@ -65,6 +65,8 @@
     <string name="filterFinish">Search</string>
     <string name="choose_age">Age</string>
     <string name="choose_size">Size</string>
+    <string name="choose_gender">Gender</string>
+
 
     //Breed Array
     <string-array name="choose_breed">
@@ -140,6 +142,11 @@
     <string name="app_enter_password">enter password</string>
     <string name="app_enter_personal_name">enter name</string>
     <string name="app_enter_phone">enter phone</string>
+    <string name="app_enter_email">enter email</string>
+    <string name="app_enter_name">enter name</string>
+
+
+
 
     <string name="login_button">login</string>
     <string name="register_button">register</string>

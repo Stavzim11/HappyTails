@@ -21,8 +21,6 @@ interface DogDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDog(dog: Dog) : Void
 
-    @Query("SELECT * from dogs")
-    suspend fun getItems() : LiveData<List<Dog>>
 
     @Query("SELECT * from dogs WHERE isFavorite = 1")
     fun getFavoriteDogs(): LiveData<List<Dog>>

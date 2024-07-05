@@ -65,6 +65,7 @@ dependencies {
 
     //Room components
     implementation(libs.room.runtime)
+    implementation("androidx.room:room-ktx:2.4.2")
     annotationProcessor(libs.room.compiler)
     kapt(libs.room.compiler)
     //for view model property delegate
@@ -82,16 +83,16 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
 
 
-    implementation("platform('com.google.firebase:firebase-bom:30.1.0')")
+    implementation(platform("com.google.firebase:firebase-bom:30.1.0"))
     implementation("com.google.firebase:firebase-analytics")
 
     // Firebase Firestore Database
-    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
     implementation("com.google.firebase:firebase-firestore:25.0.0")
 
     // Firebase Auth
     implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-auth:23.0.0")
+    implementation("com.google.firebase:firebase-auth:21.0.0")
 
 
    // implementation("androidx.core:core-ktx:1.8.0")
