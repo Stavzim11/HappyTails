@@ -11,13 +11,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.happytails.R
 import com.example.happytails.databinding.FragmentRegisterBinding
+import com.example.happytails.repository.implementations.UserRepositoryImpl
 import com.example.happytails.utils.Resource
 import com.example.happytails.utils.autoCleared
 
 class RegisterFragment : Fragment(){
 
     private var binding : FragmentRegisterBinding by autoCleared()
-    private val viewModel : RegisterViewModel by viewModels()
+    private val viewModel : RegisterViewModel by viewModels{
+        RegisterViewModel.RegisterViewModelFactory(UserRepositoryImpl())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

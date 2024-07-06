@@ -11,6 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.happytails.R
 import com.example.happytails.databinding.FragmentLoginBinding
+import com.example.happytails.repository.UserRepository
+import com.example.happytails.repository.implementations.UserRepositoryImpl
 import com.example.happytails.utils.Resource
 import com.example.happytails.utils.autoCleared
 
@@ -18,8 +20,9 @@ import com.example.happytails.utils.autoCleared
 class LoginFragment : Fragment() {
 
     private var binding :FragmentLoginBinding by autoCleared()
-    private val viewModel: LoginViewModel by viewModels()
-
+    private val viewModel: LoginViewModel by viewModels{
+        LoginViewModel.LoginViewModelFactory(UserRepositoryImpl())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +46,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.userSignInStatus.observe(viewLifecycleOwner) {
 
             when(it) {

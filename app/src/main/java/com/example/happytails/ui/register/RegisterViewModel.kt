@@ -19,6 +19,8 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
                 "Empty Strings"
             else if (!Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
                 "Not a valid email"
+            } else if(userPass.length<=6) {
+            "Not valid password"
             } else null
         error?.let {
             _userRegistrationStatus.postValue(Resource.Error(it))
@@ -27,11 +29,11 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
         viewModelScope.launch {
             val registrationResult = repository.createUser(userName, userEmail, userPhone, userPass)
             _userRegistrationStatus.postValue(registrationResult)
-        }
+}
 
-    }
+}
 
-    class RegisterViewModelFactory(private val repo: UserRepository) :
+class RegisterViewModelFactory(private val repo: UserRepository) :
         ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {

@@ -14,7 +14,7 @@ import com.example.happytails.utils.safeCall
 class UserRepositoryImpl : UserRepository {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
-    private val userRef = FirebaseFirestore.getInstance().collection("users")
+    private val userRef = FirebaseFirestore.getInstance().collection("UserCollection")
 
     override suspend fun currentUser(): Resource<User> {
         return withContext(Dispatchers.IO) {
