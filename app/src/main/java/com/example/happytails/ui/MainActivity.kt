@@ -66,10 +66,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        userViewModel.isConected.observe(
-            this,
-            Observer { updateNavigationVisibility(bottomNavigationView, it) })
-    }
+//        userViewModel.isConected.observe(
+//            this,
+//            Observer { updateNavigationVisibility(bottomNavigationView, it) })
+   }
+
 
     private fun updateNavigationVisibility(
         bottomNavigationView: BottomNavigationView,

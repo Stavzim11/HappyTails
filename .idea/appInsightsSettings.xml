@@ -9,10 +9,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.happytails" />
+                  <option name="mobileSdkAppId" value="1:205781467477:android:86607cdb0f33eaafe5efdc" />
+                  <option name="projectId" value="happytails-a0142" />
+                  <option name="projectNumber" value="205781467477" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
