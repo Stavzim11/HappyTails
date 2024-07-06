@@ -62,16 +62,8 @@ class UserRepositoryImpl : UserRepository {
     }
 
     override suspend fun isConnected(): Boolean {
-//        val user = firebaseAuth.currentUser?.uid.let {
-//            if (it != null) {
-//                userRef.document(it).get().await().toObject(User::class.java)
-//            }
-//        }
-//        return true
         val user=firebaseAuth.currentUser
         return (user!=null)
-
-
     }
 
     override fun logout() {

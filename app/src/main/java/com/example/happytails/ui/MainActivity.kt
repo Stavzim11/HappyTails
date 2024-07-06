@@ -21,17 +21,13 @@ import com.example.happytails.ui.main_screen.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-
-   // private lateinit var userViewModel: UserViewModel
+    private val ActivityVm :MainActivityViewModel by viewModels{
+        MainActivityViewModel.MainActivityViewModelFactory(UserRepositoryImpl())
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-       // ViewModel setup
-        val userViewModel: UserViewModel by viewModels {
-            UserViewModel.UserViewModelFactory(UserRepositoryImpl())
-        }
-        //userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         setContentView(R.layout.activity_main)
 
        // Apply window insets to handle system bars
@@ -67,23 +63,29 @@ class MainActivity : AppCompatActivity() {
 
                     true
                 }
-
+                R.id.navigation_logOut -> {
+                    navController.navigate(R.id.logoutFragment)
+                    true
+                }
                 else -> false
             }
         }
 
-       // Observe user connection status and update navigation visibility
-        userViewModel.isConected.observe(this) {
-            updateNavigationVisibility(bottomNavigationView, it)
-        }
-   }
+//    ActivityVm.isConected.observe(
+//            this,
+//            Observer { updateNavigationVisibility(bottomNavigationView, it) })
+    }
 
 
     private fun updateNavigationVisibility(
         bottomNavigationView: BottomNavigationView,
         connected: Boolean?
     ) {
-        val connectMenu = bottomNavigationView.menu.findItem(R.id.navigation_login)
-        connectMenu.isVisible = connected != true
+        val isConected:Boolean= ((connected) == true)
+        var connectMenu = bottomNavigationView.menu.findItem(R.id.navigation_login)
+        connectMenu.isVisible = !isConected
+        connectMenu = bottomNavigationView.menu.findItem(R.id.navigation_logOut)
+        connectMenu.isVisible=isConected
+
     }
 }

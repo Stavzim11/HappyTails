@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.happytails.R
@@ -21,6 +22,7 @@ class RegisterFragment : Fragment(){
     private val viewModel : RegisterViewModel by viewModels{
         RegisterViewModel.RegisterViewModelFactory(UserRepositoryImpl())
     }
+    private val ActivityVM:MainActivityViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +37,10 @@ class RegisterFragment : Fragment(){
              binding.email.text.toString(),
              binding.phone.text.toString(),
              binding.password.text.toString())
+        }
+
+        binding.goToLoginButton.setOnClickListener{
+            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
         return binding.root
     }
@@ -52,6 +58,7 @@ class RegisterFragment : Fragment(){
                 }
                 is Resource.Success -> {
                     Toast.makeText(requireContext(),"Registration successful",Toast.LENGTH_SHORT).show()
+                    //ActivityVM.setUserStatus(true)
                     findNavController().navigate(R.id.action_registerFragment_to_mainFragment)
                 }
                 is Resource.Error -> {

@@ -140,15 +140,13 @@
     <!--register/ loging string -->
     <string name="app_enter_userName">enter user name</string>
     <string name="app_enter_password">enter password</string>
-    <string name="app_enter_personal_name">enter name</string>
     <string name="app_enter_phone">enter phone</string>
     <string name="app_enter_email">enter email</string>
     <string name="app_enter_name">enter name</string>
 
 
-
-
     <string name="login_button">login</string>
     <string name="register_button">register</string>
+    <string name="logout_button">logout</string>
 
 </resources>

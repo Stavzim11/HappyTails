@@ -22,7 +22,7 @@
         android:textSize="33sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/userName_layout"
+        app:layout_constraintBottom_toTopOf="@+id/email_layout"
         tools:layout_editor_absoluteX="10dp" />
 
 

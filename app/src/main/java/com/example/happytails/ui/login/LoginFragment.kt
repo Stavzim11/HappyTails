@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.happytails.R
@@ -40,6 +41,7 @@ class LoginFragment : Fragment() {
             viewModel.signInUser(binding.email.text.toString(),
             binding.password.text.toString())
         }
+
         return binding.root
     }
 
@@ -56,6 +58,7 @@ class LoginFragment : Fragment() {
                 }
                 is Resource.Success -> {
                     Toast.makeText(requireContext(),"Login successful", Toast.LENGTH_SHORT).show()
+                    //ActivityVM.setUserStatus(true)
                     findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
                 }
                 is Resource.Error -> {
@@ -74,7 +77,9 @@ class LoginFragment : Fragment() {
                     binding.loginButton.isEnabled = false
                 }
                 is Resource.Success -> {
+//                    ActivityVM.setUserStatus(true)
                     findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+
                 }
                 is Resource.Error -> {
                     binding.loginProgressBar.isVisible = false
