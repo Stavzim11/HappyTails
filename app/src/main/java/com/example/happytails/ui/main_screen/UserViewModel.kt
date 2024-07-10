@@ -12,11 +12,11 @@ class UserViewModel(private val userRep: UserRepositoryImpl): ViewModel() {
         isConected.value = value
     }
 
-    class AllDogViewModelFactory(
-        private val userRepo: UserRepositoryImpl,
-    ) : ViewModelProvider.AndroidViewModelFactory() {
+    class UserViewModelFactory(
+        private val userRepo: UserRepositoryImpl
+    ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(MainFragmentViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return UserViewModel(userRepo) as T
             }

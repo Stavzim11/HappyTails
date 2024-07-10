@@ -17,6 +17,7 @@ class DetailsFragment : Fragment() {
     private var binding: DetailsFragmentBinding by autoCleared()
     private val viewModel: DetailsFragmentViewModel by viewModels()
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

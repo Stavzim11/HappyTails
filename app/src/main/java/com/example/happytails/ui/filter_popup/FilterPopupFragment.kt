@@ -10,13 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.happytails.R
 import com.example.happytails.databinding.FilterPopupFragmentBinding
+import com.example.happytails.repository.implementations.DogsRepositoryImpl
 import com.example.happytails.utils.autoCleared
 
 class FilterPopupFragment : Fragment() {
 
     private var binding : FilterPopupFragmentBinding by autoCleared()
-    
-    private val viewModel : FilterViewModel by viewModels()
+
+    private val viewModel: FilterViewModel by viewModels {
+        FilterViewModelFactory(DogsRepositoryImpl(requireActivity().application))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

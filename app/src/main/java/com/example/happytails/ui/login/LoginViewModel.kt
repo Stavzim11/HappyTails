@@ -17,8 +17,12 @@ class LoginViewModel(private val authRep:UserRepository) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            _currentUser.postValue(Resource.Loading())
-            _currentUser.postValue(authRep.currentUser())
+            _userSignInStatus.postValue(Resource.Loading())
+//            if(authRep.isConnected())
+//                _userSignInStatus.postValue(authRep.currentUser())
+//            else
+//                _userSignInStatus.postValue(Resource.Error("An error occurred"))
+            _userSignInStatus.postValue(authRep.currentUser())
         }
     }
 

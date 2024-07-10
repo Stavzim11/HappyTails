@@ -31,6 +31,17 @@ class AddDogFragment : androidx.fragment.app.Fragment() {
             viewModel.setSelectedImageUri(uri)
         }
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            openGallery()
+        } else {
+            // Handle permission denied case (e.g., show a snackbar)
+            Toast.makeText(requireContext(), "Storage permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -86,11 +97,11 @@ class AddDogFragment : androidx.fragment.app.Fragment() {
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.genderItem.adapter = genderAdapter
 
-        viewModel.selectedImageUri.observe(viewLifecycleOwner, Observer { uri ->
+        viewModel.selectedImageUri.observe(viewLifecycleOwner) { uri ->
             uri?.let {
                 binding.resultImageBtn.setImageURI(it)
             }
-        })
+        }
 
         binding.doneBtn.setOnClickListener {
             val itemTitle = binding.dogNameTitle.text.toString().trim()
@@ -118,40 +129,54 @@ class AddDogFragment : androidx.fragment.app.Fragment() {
                 findNavController().navigate(R.id.action_addDogFragment_to_mainFragment)
             }
         }
-
         binding.pickImageBtn.setOnClickListener {
+            // Check permission before launching the gallery
             if (ContextCompat.checkSelfPermission(
                     requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    REQUEST_READ_EXTERNAL_STORAGE
-                )
+                requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             } else {
                 openGallery()
             }
         }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_READ_EXTERNAL_STORAGE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            openGallery()
-        }
-    }
+
+
+//        binding.pickImageBtn.setOnClickListener {
+//            if (ContextCompat.checkSelfPermission(
+//                    requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
+//                ) != PackageManager.PERMISSION_GRANTED
+//            ) {
+//                ActivityCompat.requestPermissions(
+//                    requireActivity(),
+//                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+//                    REQUEST_READ_EXTERNAL_STORAGE
+//                )
+//            } else {
+//                openGallery()
+//            }
+//        }
+//    }
+//
+//    @Deprecated("Deprecated in Java")
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (requestCode == REQUEST_READ_EXTERNAL_STORAGE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//            openGallery()
+//        }
+//    }
 
     private fun openGallery() {
         pickImageLauncher.launch("image/*")
     }
 
-    companion object {
-        private const val REQUEST_READ_EXTERNAL_STORAGE = 100
-    }
+//    companion object {
+//        private const val REQUEST_READ_EXTERNAL_STORAGE = 100
+//    }
 }

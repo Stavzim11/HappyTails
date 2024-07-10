@@ -26,17 +26,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+       // ViewModel setup
         val userViewModel: UserViewModel by viewModels {
-            UserViewModel.AllDogViewModelFactory(UserRepositoryImpl())
+            UserViewModel.UserViewModelFactory(UserRepositoryImpl())
         }
         //userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+
+       // Apply window insets to handle system bars
+       ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+       // Set up navigation controller
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -44,7 +49,8 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+       // Set up bottom navigation item selection listener
+       bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
                     navController.navigate(R.id.mainFragment)
@@ -66,9 +72,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        userViewModel.isConected.observe(
-//            this,
-//            Observer { updateNavigationVisibility(bottomNavigationView, it) })
+       // Observe user connection status and update navigation visibility
+        userViewModel.isConected.observe(this) {
+            updateNavigationVisibility(bottomNavigationView, it)
+        }
    }
 
 
@@ -77,6 +84,6 @@ class MainActivity : AppCompatActivity() {
         connected: Boolean?
     ) {
         val connectMenu = bottomNavigationView.menu.findItem(R.id.navigation_login)
-        connectMenu.isVisible = !((connected) == true)
+        connectMenu.isVisible = connected != true
     }
 }
