@@ -12,9 +12,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import com.example.happytails.utils.safeCall
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Filter
 
 class DogsRepositoryImpl(application: Application) : DogsRepository {
+
 
     private val dogDao: DogDao?
 
@@ -28,10 +30,10 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
         dogDao = db.dogDao()
             val filters = MutableLiveData<Map<String, String?>>().apply {
             value = mapOf(
-                "Location" to "",
-                "Age" to "",
-                "Size" to "",
-                "Gender" to ""
+                "Location" to null,
+                "Age" to null,
+                "Size" to null,
+                "Gender" to null
             )
         }
         setFilters(filters)
@@ -92,20 +94,30 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
     override fun getDogsLiveData(data: MutableLiveData<Resource<List<Dog>>>) {
 
         data.postValue(Resource.Loading())
-        val query = dogRef
-            .where(
-                Filter.and
-                (Filter.or(Filter.equalTo("location", filters.value?.get("Location")), Filter.equalTo("location", ""))
-                ,Filter.or(Filter.equalTo("age", filters.value?.get("Age")), Filter.equalTo("age", ""))
-                ,Filter.or(Filter.equalTo("size", filters.value?.get("Size")), Filter.equalTo("size", ""))
-                ,Filter.or(Filter.equalTo("gender", filters.value?.get("Gender")), Filter.equalTo("gender", ""))
-                        )
-            )
-//            .whereEqualTo("location", filters.value?.get("Location") ?: "")
-//            .whereEqualTo("age", filters.value?.get("Age") ?: "")
-//            .whereEqualTo("size", filters.value?.get("Size") ?: "")
-//            .whereEqualTo("gender", filters.value?.get("Gender") ?: "")
-            .orderBy("id")
+        var query = dogRef.orderBy("id")
+        if(filters.value?.get("Location") != null) {
+            query = query.whereEqualTo("location", filters.value?.get("Location"))
+        }
+        if(filters.value?.get("Age") != null) {
+            query = query.whereEqualTo("age", filters.value?.get("Age"))
+        }
+        if(filters.value?.get("Size") != null) {
+            query = query.whereEqualTo("size", filters.value?.get("Size"))
+        }
+        if(filters.value?.get("Gender") != null) {
+            query = query.whereEqualTo("gender", filters.value?.get("Gender"))
+        }
+//        val query = dogRef
+//            .where(
+//                Filter.and
+//                (Filter.or(Filter.equalTo("location", filters.value?.get("Location")), Filter.equalTo("location", ""))
+//                ,Filter.or(Filter.equalTo("age", filters.value?.get("Age")), Filter.equalTo("age", ""))
+//                ,Filter.or(Filter.equalTo("size", filters.value?.get("Size")), Filter.equalTo("size", ""))
+//                ,Filter.or(Filter.equalTo("gender", filters.value?.get("Gender")), Filter.equalTo("gender", ""))
+//                        )
+//            )
+
+//            .orderBy("id")
 
 
         query.addSnapshotListener {snapshot, e ->

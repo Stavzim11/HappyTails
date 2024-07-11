@@ -60,7 +60,7 @@ class FilterPopupFragment : Fragment() {
         binding.autoCompleteGenders.setAdapter(gendersAdapter)
 
 
-        /** Finish Button */
+        /** Search Button */
         binding.finishBtn.setOnClickListener {
             val location = binding.autoCompleteLocations.text.toString()
             val age = binding.autoCompleteAges.text.toString()
