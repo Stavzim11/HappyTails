@@ -59,6 +59,10 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.logoutFragment)
                     true
                 }
+                R.id.navigation_filter -> {
+                    navController.navigate(R.id.filterPopUpFragment)
+                    true
+                }
                 else -> false
             }
         }
