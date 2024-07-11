@@ -26,12 +26,12 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
     init {
         val db = DogDatabase.getDatabase(application.applicationContext)
         dogDao = db.dogDao()
-        val filters = MutableLiveData<Map<String, String?>>().apply {
+            val filters = MutableLiveData<Map<String, String?>>().apply {
             value = mapOf(
-                "Location" to null,
-                "Age" to null,
-                "Size" to null,
-                "Gender" to null
+                "Location" to "",
+                "Age" to "",
+                "Size" to "",
+                "Gender" to ""
             )
         }
         setFilters(filters)
@@ -52,12 +52,6 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
             Resource.Success(dogDao?.deleteDog(dog))
         }
     }
-
-
-
-
-
-
 
     //Firebase
     private val dogRef = FirebaseFirestore.getInstance().collection("dogs")
@@ -99,16 +93,23 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
 
         data.postValue(Resource.Loading())
         val query = dogRef
-            .where(Filter.and
-                (Filter.or(Filter.equalTo("location", filters.value?.get("Location")), Filter.equalTo("location", null))
-                ,Filter.or(Filter.equalTo("age", filters.value?.get("Age")), Filter.equalTo("age", null))
-                ,Filter.or(Filter.equalTo("size", filters.value?.get("Size")), Filter.equalTo("size", null))
-                ,Filter.or(Filter.equalTo("gender", filters.value?.get("Gender")), Filter.equalTo("gender", null))
+            .where(
+                Filter.and
+                (Filter.or(Filter.equalTo("location", filters.value?.get("Location")), Filter.equalTo("location", ""))
+                ,Filter.or(Filter.equalTo("age", filters.value?.get("Age")), Filter.equalTo("age", ""))
+                ,Filter.or(Filter.equalTo("size", filters.value?.get("Size")), Filter.equalTo("size", ""))
+                ,Filter.or(Filter.equalTo("gender", filters.value?.get("Gender")), Filter.equalTo("gender", ""))
                         )
             )
+//            .whereEqualTo("location", filters.value?.get("Location") ?: "")
+//            .whereEqualTo("age", filters.value?.get("Age") ?: "")
+//            .whereEqualTo("size", filters.value?.get("Size") ?: "")
+//            .whereEqualTo("gender", filters.value?.get("Gender") ?: "")
             .orderBy("id")
 
+
         query.addSnapshotListener {snapshot, e ->
+        //dogRef.addSnapshotListener {snapshot, e ->
             if(e != null) {
                 data.postValue(Resource.Error(e.localizedMessage!!))
             }
@@ -123,7 +124,7 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
 
 
     override fun setFilters(filters: MutableLiveData<Map<String, String?>>) {
-        this.filters.postValue(filters.value)
+        this.filters.value = filters.value
     }
 
     override suspend fun updateDog(dog: Dog) = withContext(Dispatchers.IO) {

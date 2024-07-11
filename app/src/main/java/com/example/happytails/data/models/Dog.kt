@@ -8,34 +8,34 @@ import androidx.room.PrimaryKey
 data class Dog(
 
     @ColumnInfo(name = "name")
-    val name: String,
+    val name: String="",
 
     @ColumnInfo(name = "description")
-    val description: String,
+    val description: String="",
 
     @ColumnInfo(name = "moreDetails")
-    val moreDetails: String,
+    val moreDetails: String="",
 
     @ColumnInfo(name = "photo")
-    val photo: String?,
+    val photo: String?="",
 
     @ColumnInfo(name = "photoUrls")
-    val photoUrls: List<String>,
+    val photoUrls: List<String> = listOf(),
 
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = false,
 
     @ColumnInfo(name = "Location")
-    val location: String?,
+    val location: String?="",
 
     @ColumnInfo(name = "Age")
-    val age: String?,
+    val age: String?="",
 
     @ColumnInfo(name = "Size")
-    val size: String?,
+    val size: String?="",
 
     @ColumnInfo(name = "Gender")
-    val gender: String?,
+    val gender: String?="",
 
     @PrimaryKey var id: Int =0
 )
