@@ -4,16 +4,15 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.happytails.data.models.Dog
 
 class DetailsFragmentViewModel : ViewModel() {
-
-    //TODO add all dog details
 
     private val _name = MutableLiveData<String?>()
     val name: LiveData<String?> get() = _name
 
-    private val _breed = MutableLiveData<String?>()
-    val breed: LiveData<String?> get() = _breed
+    private val _description = MutableLiveData<String?>()
+    val description: LiveData<String?> get() = _description
 
     private val _photoUri = MutableLiveData<Uri?>()
     val photoUri: LiveData<Uri?> get() = _photoUri
@@ -21,17 +20,19 @@ class DetailsFragmentViewModel : ViewModel() {
     private val _moreDetails = MutableLiveData<String?>()
     val moreDetails: LiveData<String?> get() = _moreDetails
 
-
-    fun setData(name:String?, breed:String?, photoUri: String?, moreDetails: String?){
-
+    fun setData(name: String?, description: String?, photoUri: String?, moreDetails: String?) {
         _name.value = name
-        _breed.value = breed
+        _description.value = description
         _moreDetails.value = moreDetails
-        _photoUri.value = if(!photoUri.isNullOrEmpty()){
+        _photoUri.value = if (!photoUri.isNullOrEmpty()) {
             Uri.parse(photoUri)
-        }else{
+        } else {
             null
         }
     }
 
+    // Method to set a Dog object directly
+    fun setDog(dog: Dog) {
+        setData(dog.name, dog.description, dog.photo, dog.moreDetails)
+    }
 }
