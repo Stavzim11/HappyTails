@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/navigation_filter"
+        android:icon="@drawable/ic_filter"
+        android:title="Filter" />
+    <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
         android:title="Home" />
@@ -18,4 +22,6 @@
         android:id="@+id/navigation_logOut"
         android:icon="@drawable/ic_logout"
         android:title="Logout" />
+
+
 </menu>
