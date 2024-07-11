@@ -38,15 +38,25 @@ class FilterViewModel(
 //        throw IllegalArgumentException("Unknown ViewModel class")
 //    }
 //}
-class FilterViewModelFactory(
-    private val application: Application,
-    private val dogRepo: DogsRepositoryImpl
-) : ViewModelProvider.NewInstanceFactory() {
+//class FilterViewModelFactory(
+//    private val application: Application,
+//    private val dogRepo: DogsRepositoryImpl
+//) : ViewModelProvider.NewInstanceFactory() {
+//
+//    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//        if (modelClass.isAssignableFrom(FilterViewModel::class.java)) {
+//            @Suppress("UNCHECKED_CAST")
+//            return FilterViewModel(application,dogRepo) as T
+//        }
+//        throw IllegalArgumentException("Unknown ViewModel class")
+//    }
+//}
+class FilterViewModelFactory(private val application: Application) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FilterViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return FilterViewModel(application,dogRepo) as T
+            return FilterViewModel(application, DogsRepositoryImpl.getInstance(application)) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

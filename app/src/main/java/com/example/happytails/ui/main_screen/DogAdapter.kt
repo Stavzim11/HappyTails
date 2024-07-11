@@ -60,12 +60,13 @@ import com.example.happytails.databinding.ItemLayoutBinding
 
             binding.favoritesButton.setOnClickListener {
                 dog.isFavorite = !dog.isFavorite
-                val toastMeassage = if (dog.isFavorite) {
-                    "${dog.name} added to favorites"
-                } else {
-                    "${dog.name} removed from favorites"
-                }
-                Toast.makeText(context, toastMeassage, Toast.LENGTH_SHORT).show()
+//                crashing
+//                val toastMeassage = if (dog.isFavorite) {
+//                    "${dog.name} added to favorites"
+//                } else {
+//                    "${dog.name} removed from favorites"
+//                }
+//                Toast.makeText(context, toastMeassage, Toast.LENGTH_SHORT).show()
 
                 //room
                 //Update dog in the db on a background thread

@@ -70,17 +70,30 @@ class MainFragmentViewModel(
         }
     }
 
-    class AllDogViewModelFactory(
-        private val application: Application,
-        private val userRepo: UserRepositoryImpl,
-        private val dogRepo: DogsRepositoryImpl
-    ) : ViewModelProvider.AndroidViewModelFactory(application) {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(MainFragmentViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return MainFragmentViewModel(application, userRepo, dogRepo) as T
-            }
-            throw IllegalArgumentException("Unknown ViewModel class")
+//    class AllDogViewModelFactory(
+//        private val application: Application,
+//        private val userRepo: UserRepositoryImpl,
+//        private val dogRepo: DogsRepositoryImpl
+//    ) : ViewModelProvider.AndroidViewModelFactory(application) {
+//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//            if (modelClass.isAssignableFrom(MainFragmentViewModel::class.java)) {
+//                @Suppress("UNCHECKED_CAST")
+//                return MainFragmentViewModel(application, userRepo, dogRepo) as T
+//            }
+//            throw IllegalArgumentException("Unknown ViewModel class")
+//        }
+//    }
+//}
+class AllDogViewModelFactory(
+    private val application: Application,
+    private val userRepo: UserRepositoryImpl,
+) : ViewModelProvider.AndroidViewModelFactory(application) {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MainFragmentViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return MainFragmentViewModel(application, userRepo, DogsRepositoryImpl.getInstance(application)) as T
         }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
+}
 }

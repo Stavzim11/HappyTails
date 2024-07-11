@@ -16,6 +16,16 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Filter
 
 class DogsRepositoryImpl(application: Application) : DogsRepository {
+    companion object {
+        private var instance: DogsRepositoryImpl? = null
+
+        fun getInstance(application: Application): DogsRepositoryImpl {
+            if (instance == null) {
+                instance = DogsRepositoryImpl(application)
+            }
+            return instance!!
+        }
+    }
 
 
     private val dogDao: DogDao?
@@ -30,10 +40,10 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
         dogDao = db.dogDao()
             val filters = MutableLiveData<Map<String, String?>>().apply {
             value = mapOf(
-                "Location" to null,
-                "Age" to null,
-                "Size" to null,
-                "Gender" to null
+                "Location" to "",
+                "Age" to "",
+                "Size" to "",
+                "Gender" to ""
             )
         }
         setFilters(filters)
@@ -95,16 +105,16 @@ class DogsRepositoryImpl(application: Application) : DogsRepository {
 
         data.postValue(Resource.Loading())
         var query = dogRef.orderBy("id")
-        if(filters.value?.get("Location") != null) {
+        if(filters.value?.get("Location") != "") {
             query = query.whereEqualTo("location", filters.value?.get("Location"))
         }
-        if(filters.value?.get("Age") != null) {
+        if(filters.value?.get("Age") != "") {
             query = query.whereEqualTo("age", filters.value?.get("Age"))
         }
-        if(filters.value?.get("Size") != null) {
+        if(filters.value?.get("Size") != "") {
             query = query.whereEqualTo("size", filters.value?.get("Size"))
         }
-        if(filters.value?.get("Gender") != null) {
+        if(filters.value?.get("Gender") != "") {
             query = query.whereEqualTo("gender", filters.value?.get("Gender"))
         }
 //        val query = dogRef

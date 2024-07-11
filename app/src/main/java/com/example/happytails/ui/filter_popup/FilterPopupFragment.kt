@@ -24,8 +24,9 @@ class FilterPopupFragment : Fragment() {
 //    }
     private val viewModel: FilterViewModel by viewModels {
         FilterViewModelFactory(
+
             requireActivity().application,
-            DogsRepositoryImpl(requireActivity().application)
+//            DogsRepositoryImpl(requireActivity().application)
         )
     }
 

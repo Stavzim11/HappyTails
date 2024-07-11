@@ -26,8 +26,8 @@ class MainFragment : Fragment() {
     private val viewModel: MainFragmentViewModel by viewModels {
         MainFragmentViewModel.AllDogViewModelFactory(
             requireActivity().application,
-            UserRepositoryImpl(),
-            DogsRepositoryImpl(requireActivity().application)
+            UserRepositoryImpl()
+//            DogsRepositoryImpl(requireActivity().application)
         )
     }
 
