@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_mainFragment_to_logoutFragment"
             app:destination="@id/logoutFragment" />
+        <action
+            android:id="@+id/action_favoriteFragment_to_dogDetailsFragment"
+            app:destination="@id/favoriteFragment"/>
 
     </fragment>
 
