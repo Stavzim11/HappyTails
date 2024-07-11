@@ -42,30 +42,30 @@ data class Dog(
     var id: Int = 0
 }
 
-object ItemManager {
-
-    val dogs: MutableList<Dog> = mutableListOf()
-    val favorites: MutableList<Dog> = mutableListOf()
-
-    fun add(dog: Dog) {
-        dogs.add(dog)
-    }
-
-
-    fun remove(index: Int) {
-        dogs.removeAt(index)
-    }
-
-    //Deals with list of favorites
-    fun toggleFavorite(dog: Dog): Boolean {
-        return if (dog.isFavorite) {
-            dog.isFavorite = false
-            favorites.remove(dog)
-
-        } else {
-            dog.isFavorite = true
-            favorites.add(dog)
-            true
-        }
-    }
-}
+//object ItemManager {
+//
+//    val dogs: MutableList<Dog> = mutableListOf()
+//    val favorites: MutableList<Dog> = mutableListOf()
+//
+//    fun add(dog: Dog) {
+//        dogs.add(dog)
+//    }
+//
+//
+//    fun remove(index: Int) {
+//        dogs.removeAt(index)
+//    }
+//
+//    //Deals with list of favorites
+//    fun toggleFavorite(dog: Dog): Boolean {
+//        return if (dog.isFavorite) {
+//            dog.isFavorite = false
+//            favorites.remove(dog)
+//
+//        } else {
+//            dog.isFavorite = true
+//            favorites.add(dog)
+//            true
+//        }
+//    }
+//}

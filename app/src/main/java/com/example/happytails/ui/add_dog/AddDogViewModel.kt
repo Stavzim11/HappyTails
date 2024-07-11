@@ -1,13 +1,24 @@
 package com.example.happytails.ui.add_dog
 
+import android.app.Application
 import android.net.Uri
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.happytails.data.models.Dog
-import com.example.happytails.data.models.ItemManager
+import com.example.happytails.repository.implementations.DogsRepositoryImpl
+import com.example.happytails.repository.implementations.UserRepositoryImpl
+import com.example.happytails.ui.main_screen.MainFragmentViewModel
 
-class AddDogViewModel : ViewModel() {
+//import com.example.happytails.data.models.ItemManager
+
+class AddDogViewModel(
+    application: Application,
+    private val userRep: UserRepositoryImpl,
+    private val dogRep: DogsRepositoryImpl
+) : AndroidViewModel(application) {
     private val _itemTitle = MutableLiveData<String>()
     val itemTitle: LiveData<String> get() = _itemTitle
 
@@ -77,6 +88,21 @@ class AddDogViewModel : ViewModel() {
             size = _size.value,
             gender = _gender.value
         )
-        ItemManager.add(dog)
+//        ItemManager.add(dog)
+
+    }
+    class AddDogViewModelFactory(
+        private val application: Application,
+        private val userRepo: UserRepositoryImpl,
+        private val dogRepo: DogsRepositoryImpl
+    ) : ViewModelProvider.AndroidViewModelFactory(application) {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(AddDogViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return AddDogViewModel(application, userRepo, dogRepo) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
     }
 }
+

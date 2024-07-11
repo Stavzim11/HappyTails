@@ -18,13 +18,22 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.happytails.R
 import com.example.happytails.databinding.AddDogFragmentBinding
+import com.example.happytails.repository.implementations.DogsRepositoryImpl
+import com.example.happytails.repository.implementations.UserRepositoryImpl
+import com.example.happytails.ui.main_screen.MainFragmentViewModel
 import com.example.happytails.utils.autoCleared
 
 class AddDogFragment : androidx.fragment.app.Fragment() {
 
     private var binding: AddDogFragmentBinding by autoCleared()
 
-    private val viewModel: AddDogViewModel by viewModels()
+    private val viewModel: AddDogViewModel by viewModels {
+        AddDogViewModel.AddDogViewModelFactory(
+            requireActivity().application,
+            UserRepositoryImpl(),
+            DogsRepositoryImpl(requireActivity().application)
+        )
+    }
 
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
