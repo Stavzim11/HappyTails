@@ -35,11 +35,16 @@ data class Dog(
     val size: String?,
 
     @ColumnInfo(name = "Gender")
-    val gender: String?
-) {
+    val gender: String?,
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    @PrimaryKey var id: Int =0
+)
+
+object DogIdGenerator {
+    private var currentId: Int = 0
+
+    fun generateId(): Int {
+        return currentId++ }
 }
 
 //object ItemManager {

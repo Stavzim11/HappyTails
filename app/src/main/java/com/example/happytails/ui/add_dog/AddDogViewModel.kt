@@ -7,10 +7,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.happytails.data.models.Dog
+import com.example.happytails.data.models.DogIdGenerator
 import com.example.happytails.repository.implementations.DogsRepositoryImpl
 import com.example.happytails.repository.implementations.UserRepositoryImpl
 import com.example.happytails.ui.main_screen.MainFragmentViewModel
+import com.example.happytails.utils.Resource
+import kotlinx.coroutines.launch
 
 //import com.example.happytails.data.models.ItemManager
 
@@ -19,6 +23,10 @@ class AddDogViewModel(
     private val userRep: UserRepositoryImpl,
     private val dogRep: DogsRepositoryImpl
 ) : AndroidViewModel(application) {
+
+    private val _addDogStatus = MutableLiveData<Resource<Void>>()
+    val addDogStatus:LiveData<Resource<Void>> = _addDogStatus
+
     private val _itemTitle = MutableLiveData<String>()
     val itemTitle: LiveData<String> get() = _itemTitle
 
@@ -75,7 +83,7 @@ class AddDogViewModel(
         _selectedImageUri.value = uri
     }
 
-    fun insertItem(){
+     fun insertItem(){
         val dog = Dog(
             name = _itemTitle.value ?: "",
             description = _itemDescription.value ?: "",
@@ -86,10 +94,16 @@ class AddDogViewModel(
             location = _location.value,
             age = _age.value,
             size = _size.value,
-            gender = _gender.value
+            gender = _gender.value ,
+            id = DogIdGenerator.generateId()
         )
+
 //        ItemManager.add(dog)
 
+    viewModelScope.launch {
+
+        _addDogStatus.postValue(dogRep.addDog(dog))
+        }
     }
     class AddDogViewModelFactory(
         private val application: Application,
@@ -105,4 +119,5 @@ class AddDogViewModel(
         }
     }
 }
+
 

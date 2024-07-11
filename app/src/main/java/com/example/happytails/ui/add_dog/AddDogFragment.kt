@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -21,7 +22,9 @@ import com.example.happytails.databinding.AddDogFragmentBinding
 import com.example.happytails.repository.implementations.DogsRepositoryImpl
 import com.example.happytails.repository.implementations.UserRepositoryImpl
 import com.example.happytails.ui.main_screen.MainFragmentViewModel
+import com.example.happytails.utils.Resource
 import com.example.happytails.utils.autoCleared
+import com.google.android.material.snackbar.Snackbar
 
 class AddDogFragment : androidx.fragment.app.Fragment() {
 
@@ -133,6 +136,25 @@ class AddDogFragment : androidx.fragment.app.Fragment() {
                 viewModel.setSize(size)
                 viewModel.setGender(gender)
 
+                viewModel.addDogStatus.observe(viewLifecycleOwner) {
+                    when (it) {
+                        is Resource.Loading -> {
+                            binding.progressBar.isVisible = true
+                        }
+
+                        is Resource.Success -> {
+                            binding.progressBar.isVisible = false
+                            Snackbar.make(binding.addDogFragment, "Dog Added!", Snackbar.LENGTH_SHORT).show()
+                            findNavController().navigate(R.id.action_addDogFragment_to_mainFragment)
+                        }
+
+                        is Resource.Error -> {
+                            binding.progressBar.isVisible = false
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+                }
                 viewModel.insertItem()
 
                 findNavController().navigate(R.id.action_addDogFragment_to_mainFragment)
